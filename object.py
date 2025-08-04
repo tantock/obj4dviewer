@@ -17,16 +17,11 @@ class Object:
 
         self.font = pg.font.SysFont('Arial', 30, bold=True)
         self.color_faces = [(pg.Color('orange'), face) for face in self.faces]
-        self.movement_flag, self.draw_vertices = True, False
+        self.draw_vertices = False
         self.label = ''
 
     def draw(self):
         self.screen_projection()
-        self.movement()
-
-    def movement(self):
-        if self.movement_flag:
-            self.rotate_y(-(pg.time.get_ticks() % 0.005))
 
     def screen_projection(self):
         vertices = self.vertices @ self.render.camera.camera_matrix()
@@ -74,7 +69,6 @@ class Axes3(Object):
         self.color_faces = [(color, face) for color, face in zip(self.colors, self.faces)]
         self.draw_vertices = False
         self.label = 'XYZ'
-        self.movement_flag = False
 
 class Axes4(Object):
     def __init__(self, render):
@@ -84,4 +78,3 @@ class Axes4(Object):
         self.color_faces = [(color, face) for color, face in zip(self.colors, self.faces)]
         self.draw_vertices = False
         self.label = 'XYZW'
-        self.movement_flag = False
