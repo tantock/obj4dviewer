@@ -1,6 +1,6 @@
-from object import *
-from camera import *
-from projection import *
+from src.obj4drender.object import *
+from src.obj4drender.camera import *
+from src.obj4drender.projection import *
 import pygame as pg
 
 class SoftwareRender:

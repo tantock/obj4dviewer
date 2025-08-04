@@ -1,5 +1,5 @@
-from render import SoftwareRender
-from object import Axes4
+from obj4drender.render import SoftwareRender
+from obj4drender.object import Axes4
 import math
 
 if __name__ == '__main__':

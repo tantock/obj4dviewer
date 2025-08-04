@@ -1,0 +1,21 @@
+[project]
+name = "obj4drender"
+version = "0.0.1"
+dependencies = ["pygame","numpy","numba"]
+requires-python = ">=3.10"
+classifiers = ["License :: OSI Approved :: MIT License"]
+readme = "README.md"
+
+[project.optional-dependencies]
+dev = ["pytest", "coverage"]
+
+[build-system]
+requires = [
+    "wheel",
+    "setuptools-scm[toml]>=8.0",
+]
+build-backend = "setuptools.build_meta"
+
+[project.urls]
+Homepage = "https://github.com/tantock/Software_3D_engine"
+
