@@ -13,13 +13,20 @@ class SoftwareRender:
         self.FPS = 60
         self.screen = pg.display.set_mode(self.RES)
         self.clock = pg.time.Clock()
+        self.objects = []
         self.create_objects()
 
     def create_objects(self):
         self.camera = Camera(self, [-5, 6, -55, 0])
         self.projection = Projection(self)
-        self.object = self.get_object_from_file('resources/t_34_obj.obj')
-        self.object.rotate_y(-math.pi / 4)
+        self.objects.append(self.get_object_from_file('resources/tesseract.obj4'))
+        self.objects[-1].rotate_y(-math.pi / 4)
+        self.objects[-1].scale(10)
+        self.objects[-1].translate([10,10,10,0])
+
+        self.objects.append(self.get_object_from_file('resources/t_34_obj.obj'))
+        self.objects[-1].rotate_y(-math.pi / 4)
+        self.objects[-1].scale(1/5)
 
     def get_object_from_file(self, filename):
         vertex, faces = [], []
@@ -37,7 +44,8 @@ class SoftwareRender:
 
     def draw(self):
         self.screen.fill(pg.Color('darkslategray'))
-        self.object.draw()
+        for object in self.objects:
+            object.draw()
 
     def run(self):
         while True:
