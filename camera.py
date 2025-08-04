@@ -85,6 +85,6 @@ class Camera:
             [rx, ux, fx, 0, 0],
             [ry, uy, fy, 0, 0],
             [rz, uz, fz, 0, 0],
-            [rw, uw, fw, 0, 0],
+            [rw, uw, fw, 1, 0],
             [0, 0, 0, 0, 1]
         ])
