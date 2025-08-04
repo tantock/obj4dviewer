@@ -17,5 +17,5 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [project.urls]
-Homepage = "https://github.com/tantock/Software_3D_engine"
-
+Homepage = "https://github.com/tantock/obj4drender"
+Issues = "https://github.com/tantock/obj4drender/issues"
