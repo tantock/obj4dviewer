@@ -8,6 +8,7 @@ class Camera:
         self.forward = np.array([0, 0, 1, 0, 1])
         self.up = np.array([0, 1, 0, 0, 1])
         self.right = np.array([1, 0, 0, 0, 1])
+        self.there = np.array([0, 0, 0, 1, 1])
         self.h_fov = math.pi / 3
         self.v_fov = self.h_fov * (render.HEIGHT / render.WIDTH)
         self.d_fov = self.h_fov * (render.DEPTH / render.WIDTH)
@@ -34,6 +35,10 @@ class Camera:
             self.position += self.up * self.moving_speed
         if key[pg.K_e]:
             self.position -= self.up * self.moving_speed
+        if key[pg.K_SPACE]:
+            self.position += self.there * self.moving_speed
+        if key[pg.K_LCTRL]:
+            self.position -= self.there * self.moving_speed
 
         if key[pg.K_LEFT]:
             self.camera_yaw(-self.rotation_speed)
@@ -54,6 +59,7 @@ class Camera:
         self.forward = np.array([0, 0, 1, 0, 1])
         self.up = np.array([0, 1, 0, 0, 1])
         self.right = np.array([1, 0, 0, 0, 1])
+        self.there = np.array([0, 0, 0, 1, 1])
 
     def camera_update_axii(self):
         # rotate = rotate_y(self.angleYaw) @ rotate_x(self.anglePitch)
@@ -62,6 +68,7 @@ class Camera:
         self.forward = self.forward @ rotate
         self.right = self.right @ rotate
         self.up = self.up @ rotate
+        self.there = self.there @ rotate
 
     def camera_matrix(self):
         self.camera_update_axii()
