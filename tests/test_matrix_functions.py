@@ -1,4 +1,4 @@
-from src.obj4drender.matrix_functions import *
+from obj4drender.matrix_functions import *
 
 def init_vector():
         return np.array([1,2,3,4,1]) #x,y,z,w,h

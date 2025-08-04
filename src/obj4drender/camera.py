@@ -1,5 +1,5 @@
 import pygame as pg
-from src.obj4drender.matrix_functions import *
+from obj4drender.matrix_functions import *
 
 class Camera:
     def __init__(self, render, position):
