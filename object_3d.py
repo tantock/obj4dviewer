@@ -4,8 +4,8 @@ from numba import njit
 
 
 @njit(fastmath=True)
-def any_func(arr, a, b):
-    return np.any((arr == a) | (arr == b))
+def any_func(arr, a, b, c):
+    return np.any((arr == a) | (arr == b) | (arr == c))
 
 
 class Object3D:
@@ -39,7 +39,7 @@ class Object3D:
         for index, color_face in enumerate(self.color_faces):
             color, face = color_face
             polygon = vertices[face]
-            if not any_func(polygon, self.render.H_WIDTH, self.render.H_HEIGHT):
+            if not any_func(polygon, self.render.H_WIDTH, self.render.H_HEIGHT, self.render.H_DEPTH):
                 pg.draw.polygon(self.render.screen, color, polygon, 1)
                 if self.label:
                     text = self.font.render(self.label[index], True, pg.Color('white'))
@@ -47,7 +47,7 @@ class Object3D:
 
         if self.draw_vertices:
             for vertex in vertices:
-                if not any_func(vertex, self.render.H_WIDTH, self.render.H_HEIGHT):
+                if not any_func(vertex, self.render.H_WIDTH, self.render.H_HEIGHT, self.render.H_DEPTH):
                     pg.draw.circle(self.render.screen, pg.Color('white'), vertex, 2)
 
     def translate(self, pos):
