@@ -8,7 +8,7 @@ def any_func(arr, a, b, c):
     return np.any((arr == a) | (arr == b) | (arr == c))
 
 
-class Object3D:
+class Object:
     def __init__(self, render, vertices='', faces=''):
         self.render = render
         self.vertices = np.array(vertices)
@@ -66,7 +66,7 @@ class Object3D:
         self.vertices = self.vertices @ rotate_z(angle)
 
 
-class Axes(Object3D):
+class Axes(Object):
     def __init__(self, render):
         super().__init__(render)
         self.vertices = np.array([(0, 0, 0, 1), (1, 0, 0, 1), (0, 1, 0, 1), (0, 0, 1, 1)])
