@@ -66,11 +66,20 @@ class Object:
         self.vertices = self.vertices @ rotate_z(angle)
 
 
-class Axes(Object):
+class Axes3(Object):
     def __init__(self, render):
-        super().__init__(render,vertices=np.array([(0, 0, 0, 1), (1, 0, 0, 1), (0, 1, 0, 1), (0, 0, 1, 1)]))
+        super().__init__(render,vertices=np.array([(0, 0, 0, 0, 1), (1, 0, 0, 0, 1), (0, 1, 0, 0, 1), (0, 0, 1, 0, 1)]))
         self.faces = np.array([(0, 1), (0, 2), (0, 3)])
         self.colors = [pg.Color('red'), pg.Color('green'), pg.Color('blue')]
         self.color_faces = [(color, face) for color, face in zip(self.colors, self.faces)]
         self.draw_vertices = False
         self.label = 'XYZ'
+
+class Axes4(Object):
+    def __init__(self, render):
+        super().__init__(render,vertices=np.array([(0, 0, 0, 0, 1), (1, 0, 0, 0, 1), (0, 1, 0, 0, 1), (0, 0, 1, 0, 1), (0, 0, 0, 1, 1)]))
+        self.faces = np.array([(0, 1), (0, 2), (0, 3), (0, 4)])
+        self.colors = [pg.Color('red'), pg.Color('green'), pg.Color('blue'), pg.Color('yellow')]
+        self.color_faces = [(color, face) for color, face in zip(self.colors, self.faces)]
+        self.draw_vertices = False
+        self.label = 'XYZW'
