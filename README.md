@@ -1,4 +1,4 @@
-# Software_4D_engine
+# obj4drender
 Python 4D Engine (Object Renderer) with Pygame, Numpy, Numba
 
 
@@ -37,4 +37,4 @@ Please make sure to update tests as appropriate.
 ## Acknowledgments
 
 - [StanislavPetrovV](https://github.com/StanislavPetrovV) 
-    - This project would not have been possible without the base code provided by . Many thanks for their hard work and their accompanying video at [YT video](https://www.youtube.com/watch?v=M_Hx0g5vFko)
+    - This project would not have been possible without the base code provided by [StanislavPetrovV](https://github.com/StanislavPetrovV). Many thanks for their hard work and their accompanying video at [YT video](https://www.youtube.com/watch?v=M_Hx0g5vFko)
