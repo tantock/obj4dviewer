@@ -3,12 +3,13 @@ import numpy as np
 
 
 def translate(pos):
-    tx, ty, tz = pos
+    tx, ty, tz, tw = pos
     return np.array([
-        [1, 0, 0, 0],
-        [0, 1, 0, 0],
-        [0, 0, 1, 0],
-        [tx, ty, tz, 1]
+        [1,  0,  0,  0,  0],
+        [0,  1,  0,  0,  0],
+        [0,  0,  1,  0,  0],
+        [0,  0,  0,  1,  0],
+        [tx, ty, tz, tw, 1]
     ])
 
 
@@ -41,8 +42,63 @@ def rotate_z(a):
 
 def scale(n):
     return np.array([
-        [n, 0, 0, 0],
-        [0, n, 0, 0],
-        [0, 0, n, 0],
-        [0, 0, 0, 1]
+        [n, 0, 0, 0, 0],
+        [0, n, 0, 0, 0],
+        [0, 0, n, 0, 0],
+        [0, 0, 0, n, 0],
+        [0, 0, 0, 0, 1]
+    ])
+
+def rotate_zw(a):
+    return np.array([
+        [math.cos(a),  math.sin(a),  0,  0,  0],
+        [-math.sin(a),  math.cos(a),  0,  0,  0],
+        [0,  0,  1,  0,  0],
+        [0,  0,  0,  1,  0],
+        [0,  0,  0,  0,  1]
+    ])
+
+def rotate_yw(a):
+    return np.array([
+        [math.cos(a),  0,  math.sin(a),  0,  0],
+        [0,  1,  0,  0,  0],
+        [-math.sin(a),  0,  math.cos(a),  0,  0],
+        [0,  0,  0,  1,  0],
+        [0,  0,  0,  0,  1]
+    ])
+
+def rotate_yz(a):
+    return np.array([
+        [math.cos(a),  0,  0,  math.sin(a),  0],
+        [0,  1,  0,  0,  0],
+        [0,  0,  1,  0,  0],
+        [-math.sin(a),  0,  0,  math.cos(a),  0],
+        [0,  0,  0,  0,  1]
+    ])
+
+def rotate_xw(a):
+    return np.array([
+        [1,  0,  0,  0,  0],
+        [0,  math.cos(a),  math.sin(a),  0,  0],
+        [0,  -math.sin(a),  math.cos(a),  0,  0],
+        [0,  0,  0,  1,  0],
+        [0,  0,  0,  0,  1]
+    ])
+
+def rotate_xz(a):
+    return np.array([
+        [1,  0,  0,  0,  0],
+        [0,  math.cos(a),  0,  math.sin(a),  0],
+        [0,  0,  1,  0,  0],
+        [0,  -math.sin(a),  0,  math.cos(a),  0],
+        [0,  0,  0,  0,  1]
+    ])
+
+def rotate_xy(a):
+    return np.array([
+        [1,  0,  0,  0,  0],
+        [0,  1,  0,  0,  0],
+        [0,  0,  math.cos(a),  math.sin(a),  0],
+        [0,  0,  -math.sin(a),  math.cos(a),  0],
+        [0,  0,  0,  0,  1]
     ])
