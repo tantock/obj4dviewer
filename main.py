@@ -23,10 +23,13 @@ class SoftwareRender:
 
     def get_object_from_file(self, filename):
         vertex, faces = [], []
+        extra_dim = [0, 1]
+        if filename[-5:] == '.obj4':
+            extra_dim = [1]
         with open(filename) as f:
             for line in f:
                 if line.startswith('v '):
-                    vertex.append([float(i) for i in line.split()[1:]] + [1])
+                    vertex.append([float(i) for i in line.split()[1:]] + extra_dim)
                 elif line.startswith('f'):
                     faces_ = line.split()[1:]
                     faces.append([int(face_.split('/')[0]) - 1 for face_ in faces_])
