@@ -74,6 +74,7 @@ class Axes3(Object):
         self.color_faces = [(color, face) for color, face in zip(self.colors, self.faces)]
         self.draw_vertices = False
         self.label = 'XYZ'
+        self.movement_flag = False
 
 class Axes4(Object):
     def __init__(self, render):
@@ -83,3 +84,4 @@ class Axes4(Object):
         self.color_faces = [(color, face) for color, face in zip(self.colors, self.faces)]
         self.draw_vertices = False
         self.label = 'XYZW'
+        self.movement_flag = False
