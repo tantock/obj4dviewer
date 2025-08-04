@@ -13,7 +13,7 @@ class Object3D:
         self.render = render
         self.vertices = np.array(vertices)
         self.faces = faces
-        self.translate([0.0001, 0.0001, 0.0001])
+        self.translate([0.0001, 0.0001, 0.0001, 0.0001])
 
         self.font = pg.font.SysFont('Arial', 30, bold=True)
         self.color_faces = [(pg.Color('orange'), face) for face in self.faces]
