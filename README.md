@@ -15,13 +15,19 @@ git clone https://github.com/tantock/obj4dviewer.git
 ```
 In the project root directory, run
 ```
-pip install -r requirements.txt
-```
-Then run
-```
 pip install -e .
 ```
-to install the obj4drender library.
+to install the obj4drender library and the project dependencies.
+
+(Optional)
+
+To install other optional dependencies (dev/build) run
+```
+pip install -e .[dev]
+```
+```
+pip install -e .[build]
+```
 
 ## Contributing
 
