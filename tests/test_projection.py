@@ -1,10 +1,10 @@
 import numpy as np
-from obj4drender.projection import Projection
+from obj4drender.projection import Perspective
 from obj4drender.camera_view_setting import CameraViewSetting
 
 def test_perspective_depth():
     camera_config = CameraViewSetting(90, 9/16, 9/16, 1, 100)
-    projection = Projection(camera_config)
+    projection = Perspective(camera_config)
     x, y, z, w = -10,-20,-30,-40
     H = 1
 
@@ -18,7 +18,7 @@ def test_perspective_depth():
 
 def test_perspective_depth_transform():
     camera_config = CameraViewSetting(90, 9/16, 9/16, 1, 10)
-    projection = Projection(camera_config)
+    projection = Perspective(camera_config)
     x, y, z, w = -10,-20,-30,-40
     H = 1
 

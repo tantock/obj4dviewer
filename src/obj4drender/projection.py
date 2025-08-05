@@ -2,7 +2,7 @@ import math
 import numpy as np
 from obj4drender.camera_view_setting import CameraViewSetting
 
-class Projection:
+class Perspective:
     def __init__(self, view_settings:CameraViewSetting):
         NEAR = view_settings.near_plane
         FAR = view_settings.far_plane
