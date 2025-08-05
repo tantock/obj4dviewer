@@ -18,10 +18,16 @@ class SoftwareRender:
         self.create_default_scene()
 
     def create_default_scene(self):
-        self.camera = Camera(CameraViewSetting(math.pi / 3, 9/16, 1, 0.1, 100), [-5, 6, -55, 0])
+        self.camera = Camera(CameraViewSetting(math.pi / 3, self.aspect_hw(), self.aspect_dw(), 0.1, 100), [-5, 6, -55, 0])
         self.projection = Perspective(self.camera.view_settings)
         self.screen_settings = ScreenSettings(self)
     
+    def aspect_hw(self):
+        return self.HEIGHT/self.WIDTH
+    
+    def aspect_dw(self):
+        return self.DEPTH/self.WIDTH
+
     def load_object_from_file(self, filename) -> int:
         return self.add_object(self.get_object_from_file(filename))
     
