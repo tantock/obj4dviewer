@@ -5,12 +5,18 @@ from obj4dviewer.screen_settings import ScreenSettings
 import pygame as pg
 
 class SoftwareRender:
-    def __init__(self):
+    def __init__(self, res_width, res_height, **kwargs):
         pg.init()
-        self.RES = self.WIDTH, self.HEIGHT = 1600, 900
-        self.DEPTH = 1600
+        self.RES = self.WIDTH, self.HEIGHT = res_width, res_height
+        
+        self.DEPTH = kwargs.pop('res_depth', self.WIDTH)
+        self.FPS = kwargs.pop('fps', 60)
+        self.fov = math.radians(kwargs.pop('fov', 90))
+        near_plane = kwargs.pop("near_clip", 0.1)
+        far_plane = kwargs.pop("far_clip", 100)
+
         self.H_WIDTH, self.H_HEIGHT, self.H_DEPTH = self.WIDTH // 2, self.HEIGHT // 2, self.DEPTH //2
-        self.FPS = 60
+        self.camera_view_settings = CameraViewSetting(self.fov, self.aspect_hw(), self.aspect_dw(), near_plane, far_plane)
         self.screen = pg.display.set_mode(self.RES)
         self.clock = pg.time.Clock()
         self.objects = {}
@@ -18,7 +24,7 @@ class SoftwareRender:
         self.create_default_scene()
 
     def create_default_scene(self):
-        self.camera = Camera(CameraViewSetting(math.pi / 3, self.aspect_hw(), self.aspect_dw(), 0.1, 100), [-5, 6, -55, 0])
+        self.camera = Camera(self.camera_view_settings, [-5, 6, -55, 0])
         self.projection = Perspective(self.camera.view_settings)
         self.screen_settings = ScreenSettings(self)
     
