@@ -11,7 +11,7 @@ This is a viewer for 4D objects. It projects a 4D object onto a 3D plane, and th
 ## Installation
 Clone the repo with
 ```
-git clone https://github.com/tantock/obj4drender.git
+git clone https://github.com/tantock/obj4dviewer.git
 ```
 In the project root directory, run
 ```
