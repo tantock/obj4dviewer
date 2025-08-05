@@ -1,7 +1,7 @@
-from obj4drender.object import *
-from obj4drender.camera import *
-from obj4drender.projection import *
-from obj4drender.screen_settings import ScreenSettings
+from obj4dviewer.object import *
+from obj4dviewer.camera import *
+from obj4dviewer.projection import *
+from obj4dviewer.screen_settings import ScreenSettings
 import pygame as pg
 
 class SoftwareRender:

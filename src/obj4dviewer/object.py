@@ -1,5 +1,5 @@
 import pygame as pg
-from obj4drender.matrix_functions import *
+from obj4dviewer.matrix_functions import *
 from numba import njit
 
 

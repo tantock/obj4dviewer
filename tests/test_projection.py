@@ -1,6 +1,6 @@
 import numpy as np
-from obj4drender.projection import Perspective
-from obj4drender.camera_view_setting import CameraViewSetting
+from obj4dviewer.projection import Perspective
+from obj4dviewer.camera_view_setting import CameraViewSetting
 
 def test_perspective_depth():
     camera_config = CameraViewSetting(90, 9/16, 9/16, 1, 100)

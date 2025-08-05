@@ -1,6 +1,6 @@
 import pygame as pg
-from obj4drender.matrix_functions import *
-from obj4drender.camera_view_setting import CameraViewSetting
+from obj4dviewer.matrix_functions import *
+from obj4dviewer.camera_view_setting import CameraViewSetting
 class Camera:
     def __init__(self, view_settings:CameraViewSetting, position):
         self.position = np.array([*position, 1.0])

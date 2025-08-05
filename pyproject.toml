@@ -1,5 +1,5 @@
 [project]
-name = "obj4drender"
+name = "obj4dviewer"
 version = "0.0.1"
 dependencies = ["pygame","numpy","numba"]
 requires-python = ">=3.10"

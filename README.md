@@ -1,4 +1,4 @@
-# obj4drender
+# obj4dviewer
 Python 4D Engine (Object Renderer) with Pygame, Numpy, Numba
 
 

@@ -1,6 +1,6 @@
 import math
 import numpy as np
-from obj4drender.camera_view_setting import CameraViewSetting
+from obj4dviewer.camera_view_setting import CameraViewSetting
 
 class Perspective:
     def __init__(self, view_settings:CameraViewSetting):
