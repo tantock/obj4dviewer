@@ -1,16 +1,16 @@
 import math
 import numpy as np
-
+from obj4drender.camera_view_setting import CameraViewSetting
 
 class Projection:
-    def __init__(self, render):
-        NEAR = render.camera.near_plane
-        FAR = render.camera.far_plane
-        RIGHT = math.tan(render.camera.h_fov / 2)
+    def __init__(self, view_settings:CameraViewSetting):
+        NEAR = view_settings.near_plane
+        FAR = view_settings.far_plane
+        RIGHT = math.tan(view_settings.h_fov / 2)
         LEFT = -RIGHT
-        TOP = math.tan(render.camera.v_fov / 2)
+        TOP = math.tan(view_settings.v_fov / 2)
         BOTTOM = -TOP
-        THERE = math.tan(render.camera.d_fov / 2)
+        THERE = math.tan(view_settings.d_fov / 2)
         HERE = -THERE
 
         m00 = 2 / (RIGHT - LEFT)
@@ -24,13 +24,4 @@ class Projection:
             [0, 0, m22, 0, 1],
             [0, 0, 0, m33, 1],
             [0, 0, 0, m43, 0]
-        ])
-
-        HW, HH, HD = render.H_WIDTH, render.H_HEIGHT, render.H_DEPTH
-        self.to_screen_matrix = np.array([
-            [HW, 0, 0, 0, 0],
-            [0, -HH, 0, 0, 0],
-            [0, 0, HD, 0, 0],
-            [0, 0, 0, 1, 0],
-            [HW, HH, HD, 0, 1]
         ])

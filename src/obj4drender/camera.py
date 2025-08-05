@@ -1,19 +1,14 @@
 import pygame as pg
 from obj4drender.matrix_functions import *
-
+from obj4drender.camera_view_setting import CameraViewSetting
 class Camera:
-    def __init__(self, render, position):
-        self.render = render
+    def __init__(self, view_settings:CameraViewSetting, position):
         self.position = np.array([*position, 1.0])
         self.forward = np.array([0, 0, 1, 0, 1])
         self.up = np.array([0, 1, 0, 0, 1])
         self.right = np.array([1, 0, 0, 0, 1])
         self.there = np.array([0, 0, 0, 1, 1])
-        self.h_fov = math.pi / 3
-        self.v_fov = self.h_fov * (render.HEIGHT / render.WIDTH)
-        self.d_fov = self.h_fov * (render.DEPTH / render.WIDTH)
-        self.near_plane = 0.1
-        self.far_plane = 100
+        self.view_settings = view_settings
         self.moving_speed = 0.3
         self.rotation_speed = 0.015
 
