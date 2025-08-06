@@ -9,14 +9,14 @@ def any_func(arr, a, b, c):
 
 
 class Object:
-    def __init__(self, render, vertices='', faces=''):
+    def __init__(self, render, vertices='', faces='', colour = 'orange'):
         self.render = render
         self.vertices = np.array(vertices)
         self.faces = faces
         self.translate([0.0001, 0.0001, 0.0001, 0.0001])
 
         self.font = pg.font.SysFont('Arial', 30, bold=True)
-        self.color_faces = [(pg.Color('orange'), face) for face in self.faces]
+        self.color_faces = [(pg.Color(colour), face) for face in self.faces]
         self.draw_vertices = False
         self.label = ''
 
