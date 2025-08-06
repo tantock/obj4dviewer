@@ -12,6 +12,7 @@ class SoftwareRender:
         self.DEPTH = kwargs.pop('res_depth', self.WIDTH)
         self.FPS = kwargs.pop('fps', 60)
         self.fov = math.radians(kwargs.pop('fov', 90))
+        self.sky_colour = kwargs.pop('sky_colour', 'darkslategray')
         near_plane = kwargs.pop("near_clip", 0.1)
         far_plane = kwargs.pop("far_clip", 100)
 
@@ -64,7 +65,7 @@ class SoftwareRender:
         return Object(self, vertex, faces)
 
     def draw(self):
-        self.screen.fill(pg.Color('darkslategray'))
+        self.screen.fill(pg.Color(self.sky_colour))
         for object in self.objects.values():
             object.draw()
 
