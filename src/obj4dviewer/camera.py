@@ -24,6 +24,8 @@ class Camera:
 
     def control(self):
         key = pg.key.get_pressed()
+        if key[pg.K_LSHIFT]:
+            self.axiiIdentity()
         if key[pg.K_a]:
             self.position -= self.right * self.moving_speed
         if key[pg.K_d]:
