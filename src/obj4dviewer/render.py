@@ -13,6 +13,7 @@ class SoftwareRender:
         self.sky_colour = kwargs.pop('sky_colour', 'darkslategray')
         near_plane = kwargs.pop("near_clip", 0.1)
         far_plane = kwargs.pop("far_clip", 100)
+        self.vertex_sz = kwargs.pop("vertex_sz", 1)
 
         self.camera_view_settings = CameraViewSetting(self.fov, self.screen_settings.aspect_hw(), self.screen_settings.aspect_dw(), near_plane, far_plane)
         self.screen = pg.display.set_mode(self.screen_settings.RES())
@@ -74,7 +75,7 @@ class SoftwareRender:
         if object.draw_vertices:
             for vertex in vertices:
                 if not any_func(vertex, self.screen_settings.H_WIDTH, self.screen_settings.H_HEIGHT, self.screen_settings.H_DEPTH):
-                    pg.draw.circle(self.screen, pg.Color('white'), vertex, 2)
+                    pg.draw.circle(self.screen, pg.Color('white'), vertex, self.vertex_sz)
 
     def draw_scene(self):
         self.screen.fill(pg.Color(self.sky_colour))
