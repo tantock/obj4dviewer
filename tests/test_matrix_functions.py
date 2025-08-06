@@ -43,3 +43,21 @@ def test_rotate():
     np.testing.assert_array_almost_equal(vec @ rotate_xw(np.pi), np.array([1,-2,-3,4,1]))
     np.testing.assert_array_almost_equal(vec @ rotate_xz(np.pi), np.array([1,-2,3,-4,1]))
     np.testing.assert_array_almost_equal(vec @ rotate_xy(np.pi), np.array([1,2,-3,-4,1]))
+
+def test_rotate3d():
+    vec = init_vector()
+    np.testing.assert_array_almost_equal(vec @ rotate_x(0), init_vector())
+    np.testing.assert_array_almost_equal(vec @ rotate_y(0), init_vector())
+    np.testing.assert_array_almost_equal(vec @ rotate_z(0), init_vector())
+
+    np.testing.assert_array_almost_equal(vec @ rotate_x(np.pi/2), np.array([1,-3,2,4,1])) 
+    np.testing.assert_array_almost_equal(vec @ rotate_y(np.pi/2), np.array([3,2,-1,4,1])) 
+    np.testing.assert_array_almost_equal(vec @ rotate_z(np.pi/2), np.array([-2,1,3,4,1]))
+
+    np.testing.assert_array_almost_equal(vec @ rotate_x(-np.pi/2), np.array([1,3,-2,4,1])) 
+    np.testing.assert_array_almost_equal(vec @ rotate_y(-np.pi/2), np.array([-3,2,1,4,1])) 
+    np.testing.assert_array_almost_equal(vec @ rotate_z(-np.pi/2), np.array([2,-1,3,4,1]))
+
+    np.testing.assert_array_almost_equal(vec @ rotate_x(np.pi), np.array([1,-2,-3,4,1]))
+    np.testing.assert_array_almost_equal(vec @ rotate_y(np.pi), np.array([-1,2,-3,4,1]))
+    np.testing.assert_array_almost_equal(vec @ rotate_z(np.pi), np.array([-1,-2,3,4,1]))
