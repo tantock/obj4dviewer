@@ -1,7 +1,6 @@
 from obj4dviewer.object import *
 from obj4dviewer.camera import *
 from obj4dviewer.projection import *
-from obj4dviewer.screen_settings import ScreenSettings
 import pygame as pg
 
 class SoftwareRender:
@@ -22,12 +21,21 @@ class SoftwareRender:
         self.clock = pg.time.Clock()
         self.objects = {}
         self.autoincrement_obj_id = 0
+
+        HW, HH, HD = self.H_WIDTH, self.H_HEIGHT, self.H_DEPTH
+        self.screen_matrix = np.array([
+            [HW, 0, 0, 0, 0],
+            [0, -HH, 0, 0, 0],
+            [0, 0, HD, 0, 0],
+            [0, 0, 0, 1, 0],
+            [HW, HH, HD, 0, 1]
+        ])
+
         self.create_default_scene()
 
     def create_default_scene(self):
         self.camera = Camera(self.camera_view_settings, [-5, 6, -55, 0])
         self.projection = Perspective(self.camera.view_settings)
-        self.screen_settings = ScreenSettings(self)
     
     def aspect_hw(self):
         return self.HEIGHT/self.WIDTH

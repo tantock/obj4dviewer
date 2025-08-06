@@ -28,7 +28,7 @@ class Object:
         vertices = vertices @ self.render.projection.projection_matrix
         vertices /= vertices[:, -1].reshape(-1, 1)
         vertices[(vertices > 2) | (vertices < -2)] = 0
-        vertices = vertices @ self.render.screen_settings.to_screen_matrix
+        vertices = vertices @ self.render.screen_matrix
         vertices = vertices[:, :2]
 
         for index, color_face in enumerate(self.color_faces):
