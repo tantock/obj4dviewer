@@ -52,12 +52,12 @@ class SoftwareRender:
                 elif line.startswith('f'):
                     faces_ = line.split()[1:]
                     faces.append([int(face_.split('/')[0]) - 1 for face_ in faces_])
-        return Object(self, vertex, faces)
+        return Object(vertex, faces)
 
     def draw(self):
         self.screen.fill(pg.Color(self.sky_colour))
         for object in self.objects.values():
-            object.draw()
+            object.draw(self)
 
     def run(self):
         while True:

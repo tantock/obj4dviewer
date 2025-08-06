@@ -9,8 +9,7 @@ def any_func(arr, a, b, c):
 
 
 class Object:
-    def __init__(self, render, vertices='', faces='', colour = 'orange'):
-        self.render = render
+    def __init__(self, vertices='', faces='', colour = 'orange'):
         self.vertices = np.array(vertices)
         self.faces = faces
         self.translate([0.0001, 0.0001, 0.0001, 0.0001])
@@ -20,30 +19,30 @@ class Object:
         self.draw_vertices = False
         self.label = ''
 
-    def draw(self):
-        self.screen_projection()
+    def draw(self, renderer):
+        self.screen_projection(renderer)
 
-    def screen_projection(self):
-        vertices = self.vertices @ self.render.camera.camera_matrix()
-        vertices = vertices @ self.render.camera.projection.projection_matrix
+    def screen_projection(self, renderer):
+        vertices = self.vertices @ renderer.camera.camera_matrix()
+        vertices = vertices @ renderer.camera.projection.projection_matrix
         vertices /= vertices[:, -1].reshape(-1, 1)
         vertices[(vertices > 2) | (vertices < -2)] = 0
-        vertices = vertices @ self.render.screen_settings.screen_matrix
+        vertices = vertices @ renderer.screen_settings.screen_matrix
         vertices = vertices[:, :2]
 
         for index, color_face in enumerate(self.color_faces):
             color, face = color_face
             polygon = vertices[face]
-            if not any_func(polygon, self.render.screen_settings.H_WIDTH, self.render.screen_settings.H_HEIGHT, self.render.screen_settings.H_DEPTH):
-                pg.draw.polygon(self.render.screen, color, polygon, 1)
+            if not any_func(polygon, renderer.screen_settings.H_WIDTH, renderer.screen_settings.H_HEIGHT, renderer.screen_settings.H_DEPTH):
+                pg.draw.polygon(renderer.screen, color, polygon, 1)
                 if self.label:
                     text = self.font.render(self.label[index], True, pg.Color('white'))
-                    self.render.screen.blit(text, polygon[-1])
+                    renderer.screen.blit(text, polygon[-1])
 
         if self.draw_vertices:
             for vertex in vertices:
-                if not any_func(vertex, self.render.H_WIDTH, self.render.H_HEIGHT, self.render.H_DEPTH):
-                    pg.draw.circle(self.render.screen, pg.Color('white'), vertex, 2)
+                if not any_func(vertex, renderer.H_WIDTH, renderer.H_HEIGHT, renderer.H_DEPTH):
+                    pg.draw.circle(renderer.screen, pg.Color('white'), vertex, 2)
 
     def translate(self, pos):
         self.vertices = self.vertices @ translate(pos)
@@ -62,8 +61,8 @@ class Object:
 
 
 class Axes3(Object):
-    def __init__(self, render):
-        super().__init__(render,vertices=np.array([(0, 0, 0, 0, 1), (1, 0, 0, 0, 1), (0, 1, 0, 0, 1), (0, 0, 1, 0, 1)]))
+    def __init__(self):
+        super().__init__(vertices=np.array([(0, 0, 0, 0, 1), (1, 0, 0, 0, 1), (0, 1, 0, 0, 1), (0, 0, 1, 0, 1)]))
         self.faces = np.array([(0, 1), (0, 2), (0, 3)])
         self.colors = [pg.Color('red'), pg.Color('green'), pg.Color('blue')]
         self.color_faces = [(color, face) for color, face in zip(self.colors, self.faces)]
@@ -71,8 +70,8 @@ class Axes3(Object):
         self.label = 'XYZ'
 
 class Axes4(Object):
-    def __init__(self, render):
-        super().__init__(render,vertices=np.array([(0, 0, 0, 0, 1), (1, 0, 0, 0, 1), (0, 1, 0, 0, 1), (0, 0, 1, 0, 1), (0, 0, 0, 1, 1)]))
+    def __init__(self):
+        super().__init__(vertices=np.array([(0, 0, 0, 0, 1), (1, 0, 0, 0, 1), (0, 1, 0, 0, 1), (0, 0, 1, 0, 1), (0, 0, 0, 1, 1)]))
         self.faces = np.array([(0, 1), (0, 2), (0, 3), (0, 4)])
         self.colors = [pg.Color('red'), pg.Color('green'), pg.Color('blue'), pg.Color('yellow')]
         self.color_faces = [(color, face) for color, face in zip(self.colors, self.faces)]
