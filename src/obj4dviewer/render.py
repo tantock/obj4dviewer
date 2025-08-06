@@ -1,46 +1,29 @@
 from obj4dviewer.object import *
 from obj4dviewer.camera import *
 from obj4dviewer.projection import *
+from obj4dviewer.screen_setting import ScreenSetting
 import pygame as pg
 
 class SoftwareRender:
     def __init__(self, res_width, res_height, **kwargs):
         pg.init()
-        self.RES = self.WIDTH, self.HEIGHT = res_width, res_height
-        
-        self.DEPTH = kwargs.pop('res_depth', self.WIDTH)
+        self.screen_settings = ScreenSetting(res_width, res_height, kwargs.pop('res_depth', res_width))
         self.FPS = kwargs.pop('fps', 60)
         self.fov = math.radians(kwargs.pop('fov', 90))
         self.sky_colour = kwargs.pop('sky_colour', 'darkslategray')
         near_plane = kwargs.pop("near_clip", 0.1)
         far_plane = kwargs.pop("far_clip", 100)
 
-        self.H_WIDTH, self.H_HEIGHT, self.H_DEPTH = self.WIDTH // 2, self.HEIGHT // 2, self.DEPTH //2
-        self.camera_view_settings = CameraViewSetting(self.fov, self.aspect_hw(), self.aspect_dw(), near_plane, far_plane)
-        self.screen = pg.display.set_mode(self.RES)
+        self.camera_view_settings = CameraViewSetting(self.fov, self.screen_settings.aspect_hw(), self.screen_settings.aspect_dw(), near_plane, far_plane)
+        self.screen = pg.display.set_mode(self.screen_settings.RES())
         self.clock = pg.time.Clock()
         self.objects = {}
         self.autoincrement_obj_id = 0
-
-        HW, HH, HD = self.H_WIDTH, self.H_HEIGHT, self.H_DEPTH
-        self.screen_matrix = np.array([
-            [HW, 0, 0, 0, 0],
-            [0, -HH, 0, 0, 0],
-            [0, 0, HD, 0, 0],
-            [0, 0, 0, 1, 0],
-            [HW, HH, HD, 0, 1]
-        ])
 
         self.create_default_scene()
 
     def create_default_scene(self):
         self.camera = Camera(self.camera_view_settings, [-5, 6, -55, 0], Perspective(self.camera_view_settings))
-    
-    def aspect_hw(self):
-        return self.HEIGHT/self.WIDTH
-    
-    def aspect_dw(self):
-        return self.DEPTH/self.WIDTH
 
     def load_object_from_file(self, filename) -> int:
         return self.add_object(self.get_object_from_file(filename))

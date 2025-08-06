@@ -28,13 +28,13 @@ class Object:
         vertices = vertices @ self.render.camera.projection.projection_matrix
         vertices /= vertices[:, -1].reshape(-1, 1)
         vertices[(vertices > 2) | (vertices < -2)] = 0
-        vertices = vertices @ self.render.screen_matrix
+        vertices = vertices @ self.render.screen_settings.screen_matrix
         vertices = vertices[:, :2]
 
         for index, color_face in enumerate(self.color_faces):
             color, face = color_face
             polygon = vertices[face]
-            if not any_func(polygon, self.render.H_WIDTH, self.render.H_HEIGHT, self.render.H_DEPTH):
+            if not any_func(polygon, self.render.screen_settings.H_WIDTH, self.render.screen_settings.H_HEIGHT, self.render.screen_settings.H_DEPTH):
                 pg.draw.polygon(self.render.screen, color, polygon, 1)
                 if self.label:
                     text = self.font.render(self.label[index], True, pg.Color('white'))
