@@ -16,6 +16,11 @@ def test_scale():
 def test_rotate():
     vec = init_vector()
     np.testing.assert_array_almost_equal(vec @ rotate_zw(0), init_vector())
+    np.testing.assert_array_almost_equal(vec @ rotate_yw(0), init_vector())
+    np.testing.assert_array_almost_equal(vec @ rotate_yz(0), init_vector())
+    np.testing.assert_array_almost_equal(vec @ rotate_xw(0), init_vector())
+    np.testing.assert_array_almost_equal(vec @ rotate_xz(0), init_vector())
+    np.testing.assert_array_almost_equal(vec @ rotate_xy(0), init_vector())
 
     np.testing.assert_array_almost_equal(vec @ rotate_zw(np.pi/2), np.array([-2,1,3,4,1]))
     np.testing.assert_array_almost_equal(vec @ rotate_yw(np.pi/2), np.array([-3,2,1,4,1]))
