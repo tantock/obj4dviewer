@@ -35,13 +35,13 @@ class Camera:
         if key[pg.K_s]:
             self.position -= self.forward * self.moving_speed
         if key[pg.K_q]:
-            self.position += self.up * self.moving_speed
-        if key[pg.K_e]:
-            self.position -= self.up * self.moving_speed
-        if key[pg.K_SPACE]:
             self.position += self.there * self.moving_speed
-        if key[pg.K_LCTRL]:
+        if key[pg.K_e]:
             self.position -= self.there * self.moving_speed
+        if key[pg.K_SPACE]:
+            self.position += self.up * self.moving_speed
+        if key[pg.K_LCTRL]:
+            self.position -= self.up * self.moving_speed
 
         if key[pg.K_LEFT]:
             self.four_rotation = False
