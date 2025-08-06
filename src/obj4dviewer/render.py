@@ -54,14 +54,36 @@ class SoftwareRender:
                     faces.append([int(face_.split('/')[0]) - 1 for face_ in faces_])
         return Object(vertex, faces)
 
-    def draw(self):
+    def draw_object(self, object:Object):
+        vertices = object.vertices @ self.camera.camera_matrix()
+        vertices = vertices @ self.camera.projection.projection_matrix
+        vertices /= vertices[:, -1].reshape(-1, 1)
+        vertices[(vertices > 2) | (vertices < -2)] = 0
+        vertices = vertices @ self.screen_settings.screen_matrix
+        vertices = vertices[:, :2]
+
+        for index, color_face in enumerate(object.color_faces):
+            color, face = color_face
+            polygon = vertices[face]
+            if not any_func(polygon, self.screen_settings.H_WIDTH, self.screen_settings.H_HEIGHT, self.screen_settings.H_DEPTH):
+                pg.draw.polygon(self.screen, color, polygon, 1)
+                if object.label:
+                    text = object.font.render(object.label[index], True, pg.Color('white'))
+                    self.screen.blit(text, polygon[-1])
+
+        if object.draw_vertices:
+            for vertex in vertices:
+                if not any_func(vertex, self.H_WIDTH, self.H_HEIGHT, self.H_DEPTH):
+                    pg.draw.circle(self.screen, pg.Color('white'), vertex, 2)
+
+    def draw_scene(self):
         self.screen.fill(pg.Color(self.sky_colour))
         for object in self.objects.values():
-            object.draw(self)
+            self.draw_object(object)
 
     def run(self):
         while True:
-            self.draw()
+            self.draw_scene()
             self.camera.control()
             [exit() for i in pg.event.get() if i.type == pg.QUIT]
             pg.display.set_caption(str(self.clock.get_fps()))

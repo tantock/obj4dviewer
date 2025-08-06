@@ -19,31 +19,6 @@ class Object:
         self.draw_vertices = False
         self.label = ''
 
-    def draw(self, renderer):
-        self.screen_projection(renderer)
-
-    def screen_projection(self, renderer):
-        vertices = self.vertices @ renderer.camera.camera_matrix()
-        vertices = vertices @ renderer.camera.projection.projection_matrix
-        vertices /= vertices[:, -1].reshape(-1, 1)
-        vertices[(vertices > 2) | (vertices < -2)] = 0
-        vertices = vertices @ renderer.screen_settings.screen_matrix
-        vertices = vertices[:, :2]
-
-        for index, color_face in enumerate(self.color_faces):
-            color, face = color_face
-            polygon = vertices[face]
-            if not any_func(polygon, renderer.screen_settings.H_WIDTH, renderer.screen_settings.H_HEIGHT, renderer.screen_settings.H_DEPTH):
-                pg.draw.polygon(renderer.screen, color, polygon, 1)
-                if self.label:
-                    text = self.font.render(self.label[index], True, pg.Color('white'))
-                    renderer.screen.blit(text, polygon[-1])
-
-        if self.draw_vertices:
-            for vertex in vertices:
-                if not any_func(vertex, renderer.H_WIDTH, renderer.H_HEIGHT, renderer.H_DEPTH):
-                    pg.draw.circle(renderer.screen, pg.Color('white'), vertex, 2)
-
     def translate(self, pos):
         self.vertices = self.vertices @ translate(pos)
 
