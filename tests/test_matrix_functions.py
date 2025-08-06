@@ -61,3 +61,17 @@ def test_rotate3d():
     np.testing.assert_array_almost_equal(vec @ rotate_x(np.pi), np.array([1,-2,-3,4,1]))
     np.testing.assert_array_almost_equal(vec @ rotate_y(np.pi), np.array([-1,2,-3,4,1]))
     np.testing.assert_array_almost_equal(vec @ rotate_z(np.pi), np.array([-1,-2,3,4,1]))
+
+def test_cross4():
+    U = np.array([1,0,0,0])
+    V = np.array([0,1,0,0])
+    W = np.array([0,0,1,0])
+
+    np.testing.assert_array_almost_equal(cross4(U,U,U), np.array([0,0,0,0]))
+
+    np.testing.assert_array_almost_equal(cross4(U,V,W), np.array([0,0,0,-1]))
+    np.testing.assert_array_almost_equal(cross4(U,W,V), np.array([0,0,0, 1]))
+    np.testing.assert_array_almost_equal(cross4(V,W,U), np.array([0,0,0,-1]))
+    np.testing.assert_array_almost_equal(cross4(V,U,W), np.array([0,0,0, 1]))
+    np.testing.assert_array_almost_equal(cross4(W,U,V), np.array([0,0,0,-1]))
+    np.testing.assert_array_almost_equal(cross4(W,V,U), np.array([0,0,0, 1]))
