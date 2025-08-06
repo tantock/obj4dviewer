@@ -73,7 +73,7 @@ class SoftwareRender:
 
         if object.draw_vertices:
             for vertex in vertices:
-                if not any_func(vertex, self.H_WIDTH, self.H_HEIGHT, self.H_DEPTH):
+                if not any_func(vertex, self.screen_settings.H_WIDTH, self.screen_settings.H_HEIGHT, self.screen_settings.H_DEPTH):
                     pg.draw.circle(self.screen, pg.Color('white'), vertex, 2)
 
     def draw_scene(self):
