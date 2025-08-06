@@ -25,7 +25,7 @@ class Object:
 
     def screen_projection(self):
         vertices = self.vertices @ self.render.camera.camera_matrix()
-        vertices = vertices @ self.render.projection.projection_matrix
+        vertices = vertices @ self.render.camera.projection.projection_matrix
         vertices /= vertices[:, -1].reshape(-1, 1)
         vertices[(vertices > 2) | (vertices < -2)] = 0
         vertices = vertices @ self.render.screen_matrix

@@ -34,8 +34,7 @@ class SoftwareRender:
         self.create_default_scene()
 
     def create_default_scene(self):
-        self.camera = Camera(self.camera_view_settings, [-5, 6, -55, 0])
-        self.projection = Perspective(self.camera.view_settings)
+        self.camera = Camera(self.camera_view_settings, [-5, 6, -55, 0], Perspective(self.camera_view_settings))
     
     def aspect_hw(self):
         return self.HEIGHT/self.WIDTH

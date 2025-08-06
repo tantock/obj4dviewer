@@ -2,7 +2,8 @@ import pygame as pg
 from obj4dviewer.matrix_functions import *
 from obj4dviewer.camera_view_setting import CameraViewSetting
 class Camera:
-    def __init__(self, view_settings:CameraViewSetting, position):
+    def __init__(self, view_settings:CameraViewSetting, position, projection):
+        self.projection = projection
         self.position = np.array([*position, 1.0])
         self.forward = np.array([0, 0, 1, 0, 1])
         self.up = np.array([0, 1, 0, 0, 1])
