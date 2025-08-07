@@ -2,7 +2,9 @@ from obj4dviewer.object import *
 from obj4dviewer.camera import *
 from obj4dviewer.projection import *
 from obj4dviewer.screen_setting import ScreenSetting
+import obj4dviewer.model_file_handler
 import pygame as pg
+import os
 
 class SoftwareRender:
     def __init__(self, res_width, res_height, **kwargs):
@@ -42,18 +44,17 @@ class SoftwareRender:
         return self.objects[id]
 
     def get_object_from_file(self, filename):
-        vertex, faces = [], []
-        extra_dim = [0, 1]
-        if filename[-5:] == '.obj4':
-            extra_dim = [1]
-        with open(filename) as f:
-            for line in f:
-                if line.startswith('v '):
-                    vertex.append([float(i) for i in line.split()[1:]] + extra_dim)
-                elif line.startswith('f'):
-                    faces_ = line.split()[1:]
-                    faces.append([int(face_.split('/')[0]) - 1 for face_ in faces_])
-        return Object(vertex, faces)
+        file, file_extension = os.path.splitext(filename)
+        obj = None
+        match file_extension:
+            case '.obj':
+                obj = obj4dviewer.model_file_handler.handle_obj_file(filename)
+            case '.obj4':
+                obj = obj4dviewer.model_file_handler.handle_obj4_file(filename)
+            case _:
+                raise NotImplementedError(f"No handler for extension: {file_extension}")
+        
+        return obj
 
     def draw_object(self, object:Object):
         vertices = object.vertices @ self.camera.camera_matrix()
