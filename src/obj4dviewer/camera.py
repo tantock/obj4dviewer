@@ -107,10 +107,7 @@ class Camera:
 
     def camera_matrix(self):
         self.camera_update_axii()
-        return self.translate_matrix() @ self.rotate_matrix()
-
-    def translate_matrix(self):
-        return translate(-self.position[:-1])
+        return translate(-self.position[:-1]) @ self.rotate_matrix()
 
     def rotate_matrix(self):
         rx, ry, rz, rw, h = self.right
