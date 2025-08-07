@@ -2,9 +2,8 @@ from obj4dviewer.object import *
 from obj4dviewer.camera import *
 from obj4dviewer.projection import *
 from obj4dviewer.render_settings import RenderSettings
-import obj4dviewer.model_file_handler
+from obj4dviewer.scene import Scene
 import pygame as pg
-import os
 
 class SoftwareRender:
     def __init__(self, settings:RenderSettings):
@@ -12,45 +11,15 @@ class SoftwareRender:
         self.settings = settings
         self.screen = pg.display.set_mode(self.settings.screen_settings.RES())
         self.clock = pg.time.Clock()
-        self.objects = {}
-        self.autoincrement_obj_id = 0
+        self.scene = Scene()
+        self.add_camera_to_scene()
 
-        self.create_default_scene()
-
-    def create_default_scene(self):
-        self.camera = Camera([-5, 6, -55, 0], Perspective(self.settings.camera_view_settings))
-
-    def load_object_from_file(self, filename) -> int:
-        return self.add_object(self.get_object_from_file(filename))
-    
-    def add_object(self, object:Object) -> int:
-        id = self.autoincrement_obj_id
-        self.objects[id] = object
-        self.autoincrement_obj_id += 1
-        return id
-    
-    def pop_object(self, id:int) -> Object:
-        return self.objects.pop(id)
-    
-    def get_object(self, id:int) -> Object:
-        return self.objects[id]
-
-    def get_object_from_file(self, filename):
-        file, file_extension = os.path.splitext(filename)
-        obj = None
-        match file_extension:
-            case '.obj':
-                obj = obj4dviewer.model_file_handler.handle_obj_file(filename)
-            case '.obj4':
-                obj = obj4dviewer.model_file_handler.handle_obj4_file(filename)
-            case _:
-                raise NotImplementedError(f"No handler for extension: {file_extension}")
-        
-        return obj
+    def add_camera_to_scene(self):
+        self.scene.init_camera(Camera([-5, 6, -55, 0], Perspective(self.settings.camera_view_settings)))
 
     def draw_object(self, object:Object):
-        vertices = object.vertices @ self.camera.camera_matrix()
-        vertices = vertices @ self.camera.projection.projection_matrix
+        vertices = object.vertices @ self.scene.camera.camera_matrix()
+        vertices = vertices @ self.scene.camera.projection.projection_matrix
         vertices /= vertices[:, -1].reshape(-1, 1)
         vertices[(vertices > 2) | (vertices < -2)] = 0
         vertices = vertices @ self.settings.screen_settings.screen_matrix
@@ -72,13 +41,13 @@ class SoftwareRender:
 
     def draw_scene(self):
         self.screen.fill(pg.Color(self.settings.sky_colour))
-        for object in self.objects.values():
+        for object in self.scene.objects.values():
             self.draw_object(object)
 
     def run(self):
         while True:
             self.draw_scene()
-            self.camera.control()
+            self.scene.camera.control()
             [exit() for i in pg.event.get() if i.type == pg.QUIT]
             pg.display.set_caption(str(self.clock.get_fps()))
             pg.display.flip()
