@@ -12,7 +12,6 @@ class Object:
     def __init__(self, vertices='', faces='', colour = 'orange'):
         self.vertices = np.array(vertices)
         self.faces = faces
-        self.translate([0.0001, 0.0001, 0.0001, 0.0001])
 
         self.font = pg.font.SysFont('Arial', 30, bold=True)
         self.color_faces = [(pg.Color(colour), face) for face in self.faces]
