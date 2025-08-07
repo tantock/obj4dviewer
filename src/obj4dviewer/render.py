@@ -1,24 +1,16 @@
 from obj4dviewer.object import *
 from obj4dviewer.camera import *
 from obj4dviewer.projection import *
-from obj4dviewer.screen_setting import ScreenSetting
+from obj4dviewer.render_settings import RenderSettings
 import obj4dviewer.model_file_handler
 import pygame as pg
 import os
 
 class SoftwareRender:
-    def __init__(self, res_width, res_height, **kwargs):
+    def __init__(self, settings:RenderSettings):
         pg.init()
-        self.screen_settings = ScreenSetting(res_width, res_height, kwargs.pop('res_depth', res_width))
-        self.FPS = kwargs.pop('fps', 60)
-        self.fov = math.radians(kwargs.pop('fov', 90))
-        self.sky_colour = kwargs.pop('sky_colour', 'darkslategray')
-        near_plane = kwargs.pop("near_clip", 0.1)
-        far_plane = kwargs.pop("far_clip", 100)
-        self.vertex_sz = kwargs.pop("vertex_sz", 1)
-
-        self.camera_view_settings = CameraViewSetting(self.fov, self.screen_settings.aspect_hw(), self.screen_settings.aspect_dw(), near_plane, far_plane)
-        self.screen = pg.display.set_mode(self.screen_settings.RES())
+        self.settings = settings
+        self.screen = pg.display.set_mode(self.settings.screen_settings.RES())
         self.clock = pg.time.Clock()
         self.objects = {}
         self.autoincrement_obj_id = 0
@@ -26,7 +18,7 @@ class SoftwareRender:
         self.create_default_scene()
 
     def create_default_scene(self):
-        self.camera = Camera([-5, 6, -55, 0], Perspective(self.camera_view_settings))
+        self.camera = Camera([-5, 6, -55, 0], Perspective(self.settings.camera_view_settings))
 
     def load_object_from_file(self, filename) -> int:
         return self.add_object(self.get_object_from_file(filename))
@@ -61,13 +53,13 @@ class SoftwareRender:
         vertices = vertices @ self.camera.projection.projection_matrix
         vertices /= vertices[:, -1].reshape(-1, 1)
         vertices[(vertices > 2) | (vertices < -2)] = 0
-        vertices = vertices @ self.screen_settings.screen_matrix
+        vertices = vertices @ self.settings.screen_settings.screen_matrix
         vertices = vertices[:, :2]
 
         for index, color_face in enumerate(object.color_faces):
             color, face = color_face
             polygon = vertices[face]
-            if not any_func(polygon, self.screen_settings.H_WIDTH, self.screen_settings.H_HEIGHT, self.screen_settings.H_DEPTH):
+            if not any_func(polygon, self.settings.screen_settings.H_WIDTH, self.settings.screen_settings.H_HEIGHT, self.settings.screen_settings.H_DEPTH):
                 pg.draw.polygon(self.screen, color, polygon, 1)
                 if object.label:
                     text = object.font.render(object.label[index], True, pg.Color('white'))
@@ -75,11 +67,11 @@ class SoftwareRender:
 
         if object.draw_vertices:
             for vertex in vertices:
-                if not any_func(vertex, self.screen_settings.H_WIDTH, self.screen_settings.H_HEIGHT, self.screen_settings.H_DEPTH):
-                    pg.draw.circle(self.screen, pg.Color('white'), vertex, self.vertex_sz)
+                if not any_func(vertex, self.settings.screen_settings.H_WIDTH, self.settings.screen_settings.H_HEIGHT, self.settings.screen_settings.H_DEPTH):
+                    pg.draw.circle(self.screen, pg.Color('white'), vertex, self.settings.vertex_sz)
 
     def draw_scene(self):
-        self.screen.fill(pg.Color(self.sky_colour))
+        self.screen.fill(pg.Color(self.settings.sky_colour))
         for object in self.objects.values():
             self.draw_object(object)
 
@@ -90,4 +82,4 @@ class SoftwareRender:
             [exit() for i in pg.event.get() if i.type == pg.QUIT]
             pg.display.set_caption(str(self.clock.get_fps()))
             pg.display.flip()
-            self.clock.tick(self.FPS)
+            self.clock.tick(self.settings.FPS)

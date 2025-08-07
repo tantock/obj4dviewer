@@ -1,9 +1,10 @@
 from obj4dviewer.render import SoftwareRender
+from obj4dviewer.render_settings import RenderSettings
 from obj4dviewer.object import Axes4
 import math
 
 if __name__ == '__main__':
-    app = SoftwareRender(1600,900)
+    app = SoftwareRender(RenderSettings(1600, 900))
     tesseract_id = app.load_object_from_file('resources/tesseract.obj4')
     tank_id = app.load_object_from_file('resources/t_34_obj.obj')
     axis_id = app.add_object(Axes4())
