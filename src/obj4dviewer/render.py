@@ -26,7 +26,7 @@ class SoftwareRender:
         self.create_default_scene()
 
     def create_default_scene(self):
-        self.camera = Camera(self.camera_view_settings, [-5, 6, -55, 0], Perspective(self.camera_view_settings))
+        self.camera = Camera([-5, 6, -55, 0], Perspective(self.camera_view_settings))
 
     def load_object_from_file(self, filename) -> int:
         return self.add_object(self.get_object_from_file(filename))
