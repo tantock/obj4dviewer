@@ -52,6 +52,7 @@ class SoftwareRender:
         while True:
             self.draw_scene()
             self.scene.camera_controller.control()
+            self.scene.camera_controller.mouse_input(self.settings.mouse_factor)
             [exit() for i in pg.event.get() if i.type == pg.QUIT]
             pg.display.set_caption(str(self.clock.get_fps()))
             pg.display.flip()

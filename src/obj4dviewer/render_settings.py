@@ -15,3 +15,4 @@ class RenderSettings:
         self.camera_view_settings = CameraViewSettings(self.fov, self.screen_settings.aspect_hw(), self.screen_settings.aspect_dw(), near_plane, far_plane)
         self.visible_mouse = kwargs.pop('visible_mouse', False)
         self.set_grab = not kwargs.pop('visible_mouse', False)
+        self.mouse_factor = kwargs.pop('mouse_factor', 0.001)

@@ -70,3 +70,11 @@ class CameraController:
 
     def camera_PitchYaw(self, angle): #xy
         self.camera.anglePitchYaw += angle    
+
+    def mouse_input(self, mouse_factor:float):
+        self.camera.four_rotation = True
+        delta_x, delta_y = pg.mouse.get_rel()
+        rotation_direction_x = float(delta_x)*mouse_factor
+        rotation_direction_y = -float(delta_y)*mouse_factor
+        self.camera_PitchYaw(rotation_direction_y)
+        self.camera_YawRoll(rotation_direction_x)
