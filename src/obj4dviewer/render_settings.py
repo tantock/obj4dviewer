@@ -16,3 +16,4 @@ class RenderSettings:
         self.visible_mouse = kwargs.pop('visible_mouse', False)
         self.set_grab = not kwargs.pop('visible_mouse', False)
         self.mouse_factor = kwargs.pop('mouse_factor', 0.001)
+        self.mouse_speed = kwargs.pop('mouse_speed', 0.5)
