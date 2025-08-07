@@ -1,9 +1,9 @@
 import numpy as np
 from obj4dviewer.projection import Perspective
-from obj4dviewer.camera_view_setting import CameraViewSetting
+from obj4dviewer.camera_view_settings import CameraViewSettings
 
 def init():
-    camera_config = CameraViewSetting(90, 9/16, 9/16, 1, 100)
+    camera_config = CameraViewSettings(90, 9/16, 9/16, 1, 100)
     return Perspective(camera_config)
 
 def test_perspective_depth():

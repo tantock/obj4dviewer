@@ -1,6 +1,6 @@
 import numpy as np
 
-class ScreenSetting():
+class ScreenSettings():
     def __init__(self, WIDTH, HEIGHT, DEPTH):
         self.WIDTH = WIDTH
         self.HEIGHT = HEIGHT

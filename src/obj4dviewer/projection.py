@@ -1,9 +1,9 @@
 import math
 import numpy as np
-from obj4dviewer.camera_view_setting import CameraViewSetting
+from obj4dviewer.camera_view_settings import CameraViewSettings
 
 class Perspective:
-    def __init__(self, view_settings:CameraViewSetting):
+    def __init__(self, view_settings:CameraViewSettings):
         NEAR = view_settings.near_plane
         FAR = view_settings.far_plane
         RIGHT = math.tan(view_settings.h_fov / 2)
