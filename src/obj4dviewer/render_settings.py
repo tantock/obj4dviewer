@@ -13,3 +13,5 @@ class RenderSettings:
         self.vertex_sz = kwargs.pop("vertex_sz", 1)
 
         self.camera_view_settings = CameraViewSettings(self.fov, self.screen_settings.aspect_hw(), self.screen_settings.aspect_dw(), near_plane, far_plane)
+        self.visible_mouse = kwargs.pop('visible_mouse', False)
+        self.set_grab = not kwargs.pop('visible_mouse', False)

@@ -10,6 +10,9 @@ class SoftwareRender:
         pg.init()
         self.settings = settings
         self.screen = pg.display.set_mode(self.settings.screen_settings.RES())
+        pg.mouse.set_visible(settings.visible_mouse)
+        pg.event.set_grab(settings.set_grab)
+
         self.clock = pg.time.Clock()
         self.scene = Scene()
         self.add_camera_to_scene()
