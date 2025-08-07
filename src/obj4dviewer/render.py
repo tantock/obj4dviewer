@@ -15,7 +15,8 @@ class SoftwareRender:
         self.add_camera_to_scene()
 
     def add_camera_to_scene(self):
-        self.scene.init_camera(Camera([-5, 6, -55, 0], Perspective(self.settings.camera_view_settings)))
+        camera = Camera([-5, 6, -55, 0], Perspective(self.settings.camera_view_settings))
+        self.scene.init_camera(camera)
 
     def draw_object(self, object:Object):
         vertices = object.vertices @ self.scene.camera.camera_matrix()
@@ -47,7 +48,7 @@ class SoftwareRender:
     def run(self):
         while True:
             self.draw_scene()
-            self.scene.camera.control()
+            self.scene.camera_controller.control()
             [exit() for i in pg.event.get() if i.type == pg.QUIT]
             pg.display.set_caption(str(self.clock.get_fps()))
             pg.display.flip()

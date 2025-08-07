@@ -1,5 +1,5 @@
 from obj4dviewer.camera import Camera
-from obj4dviewer.projection import Perspective
+from obj4dviewer.camera_controller import CameraController
 from obj4dviewer.object import Object
 from obj4dviewer import model_file_handler
 import os
@@ -12,6 +12,7 @@ class Scene:
 
     def init_camera(self, camera:Camera):
         self.camera = camera
+        self.camera_controller = CameraController(camera)
 
     def load_object_from_file(self, filename) -> int:
         return self.add_object(self.get_object_from_file(filename))
