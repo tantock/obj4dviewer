@@ -110,14 +110,7 @@ class Camera:
         return self.translate_matrix() @ self.rotate_matrix()
 
     def translate_matrix(self):
-        x, y, z, w, h = self.position
-        return np.array([
-            [1, 0, 0, 0, 0],
-            [0, 1, 0, 0, 0],
-            [0, 0, 1, 0, 0],
-            [0, 0, 0, 1, 0],
-            [-x, -y, -z, -w, 1]
-        ])
+        return translate(-self.position[:-1])
 
     def rotate_matrix(self):
         rx, ry, rz, rw, h = self.right
