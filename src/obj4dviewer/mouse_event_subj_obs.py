@@ -21,8 +21,10 @@ class MouseScrollSubject(Subject):
         self.notify()
 
 class CameraMouseScrollObserver(Observer):
-    def __init__(self, camera_controller:CameraController):
+    def __init__(self, camera_controller:CameraController, mouse_factor, mouse_speed):
         super().__init__()
+        self.mouse_factor = mouse_factor
+        self.mouse_speed = mouse_speed
         self.camera_controller = camera_controller
     def update(self, subject: Subject) -> None:
-        self.camera_controller.camera_PitchRoll(subject._state[1]*self.camera_controller.mouse_factor*100)
+        self.camera_controller.camera_PitchRoll(subject._state[1]*self.mouse_factor*self.mouse_speed*100)

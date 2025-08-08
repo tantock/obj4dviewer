@@ -1,10 +1,8 @@
 from obj4dviewer.camera import Camera
 import pygame as pg
 class CameraController:
-    def __init__(self, camera:Camera, mouse_factor, mouse_speed):
+    def __init__(self, camera:Camera):
         self.camera = camera
-        self.mouse_factor = mouse_factor
-        self.mouse_speed = mouse_speed
 
     def control(self):
         key = pg.key.get_pressed()

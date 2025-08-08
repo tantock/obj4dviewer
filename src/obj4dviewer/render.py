@@ -21,8 +21,8 @@ class SoftwareRender:
 
     def add_camera_to_scene(self):
         camera = Camera([-5, 6, -55, 0], Perspective(self.settings.camera_view_settings))
-        self.scene.init_camera(camera, self.settings.mouse_speed, self.settings.mouse_factor)
-        self.mouse_scroll_subj.attach(CameraMouseScrollObserver(self.scene.camera_controller))
+        self.scene.init_camera(camera)
+        self.mouse_scroll_subj.attach(CameraMouseScrollObserver(self.scene.camera_controller, self.settings.mouse_factor, self.settings.mouse_speed))
 
     def draw_object(self, object:Object):
         vertices = object.vertices @ self.scene.camera.camera_matrix()
