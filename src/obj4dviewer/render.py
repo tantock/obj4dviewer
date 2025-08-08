@@ -3,6 +3,7 @@ from obj4dviewer.camera import *
 from obj4dviewer.projection import *
 from obj4dviewer.render_settings import RenderSettings
 from obj4dviewer.scene import Scene
+from obj4dviewer.mouse_event_subj_obs import CameraMouseScrollObserver, MouseScrollSubject
 import pygame as pg
 
 class SoftwareRender:
@@ -15,11 +16,13 @@ class SoftwareRender:
 
         self.clock = pg.time.Clock()
         self.scene = Scene()
+        self.mouse_scroll_subj = MouseScrollSubject()
         self.add_camera_to_scene()
 
     def add_camera_to_scene(self):
         camera = Camera([-5, 6, -55, 0], Perspective(self.settings.camera_view_settings))
-        self.scene.init_camera(camera)
+        self.scene.init_camera(camera, self.settings.mouse_speed, self.settings.mouse_factor)
+        self.mouse_scroll_subj.attach(CameraMouseScrollObserver(self.scene.camera_controller))
 
     def draw_object(self, object:Object):
         vertices = object.vertices @ self.scene.camera.camera_matrix()
@@ -53,7 +56,12 @@ class SoftwareRender:
             self.draw_scene()
             self.scene.camera_controller.control()
             self.scene.camera_controller.mouse_input(self.settings.mouse_factor*self.settings.mouse_speed)
-            [exit() for i in pg.event.get() if i.type == pg.QUIT]
+                
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    exit()
+                if event.type == pg.MOUSEWHEEL:
+                    self.mouse_scroll_subj.update_scroll_direction((event.x, event.y))
             pg.display.set_caption(str(self.clock.get_fps()))
             pg.display.flip()
             self.clock.tick(self.settings.FPS)

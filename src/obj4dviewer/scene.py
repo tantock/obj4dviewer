@@ -10,9 +10,9 @@ class Scene:
         self.autoincrement_obj_id = 0
         self.camera = None
 
-    def init_camera(self, camera:Camera):
+    def init_camera(self, camera:Camera, mouse_speed, mouse_factor):
         self.camera = camera
-        self.camera_controller = CameraController(camera)
+        self.camera_controller = CameraController(camera, mouse_factor, mouse_speed)
 
     def load_object_from_file(self, filename) -> int:
         return self.add_object(self.get_object_from_file(filename))

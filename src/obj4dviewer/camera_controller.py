@@ -1,8 +1,10 @@
 from obj4dviewer.camera import Camera
 import pygame as pg
 class CameraController:
-    def __init__(self, camera:Camera):
+    def __init__(self, camera:Camera, mouse_factor, mouse_speed):
         self.camera = camera
+        self.mouse_factor = mouse_factor
+        self.mouse_speed = mouse_speed
 
     def control(self):
         key = pg.key.get_pressed()
@@ -78,7 +80,3 @@ class CameraController:
         rotation_direction_y = -float(delta_y)*mouse_factor
         self.camera_PitchYaw(rotation_direction_y)
         self.camera_YawRoll(rotation_direction_x)
-
-        for event in pg.event.get():
-            if event.type == pg.MOUSEWHEEL:
-               self.camera_PitchRoll(event.y*mouse_factor*100)
