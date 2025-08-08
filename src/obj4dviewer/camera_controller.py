@@ -78,3 +78,7 @@ class CameraController:
         rotation_direction_y = -float(delta_y)*mouse_factor
         self.camera_PitchYaw(rotation_direction_y)
         self.camera_YawRoll(rotation_direction_x)
+
+        for event in pg.event.get():
+            if event.type == pg.MOUSEWHEEL:
+               self.camera_PitchRoll(event.y*mouse_factor*100)
