@@ -51,17 +51,19 @@ class SoftwareRender:
         for object in self.scene.objects.values():
             self.draw_object(object)
 
+    def handle_pg_event(self):                    
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                exit()
+            if event.type == pg.MOUSEWHEEL:
+                self.mouse_scroll_subj.update_scroll_direction((event.x, event.y))
+
     def run(self):
         while True:
             self.draw_scene()
             self.scene.camera_controller.control()
             self.scene.camera_controller.mouse_input(self.settings.mouse_factor*self.settings.mouse_speed)
-                
-            for event in pg.event.get():
-                if event.type == pg.QUIT:
-                    exit()
-                if event.type == pg.MOUSEWHEEL:
-                    self.mouse_scroll_subj.update_scroll_direction((event.x, event.y))
+            self.handle_pg_event()
             pg.display.set_caption(str(self.clock.get_fps()))
             pg.display.flip()
             self.clock.tick(self.settings.FPS)
