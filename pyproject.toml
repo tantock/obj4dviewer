@@ -7,7 +7,7 @@ classifiers = ["License :: OSI Approved :: MIT License"]
 readme = "README.md"
 
 [project.optional-dependencies]
-test = ["pytest", "coverage"]
+test = ["pytest", "coverage", "pytest-mock"]
 build = ["build", "setuptools", "setuptools_scm","wheel"]
 
 [build-system]
