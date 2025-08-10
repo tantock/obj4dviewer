@@ -20,9 +20,9 @@ pip install -e .
 ```
 to install the obj4drender library and the project dependencies.
 
-(Optional)
+### Optional Dependencies
 
-To install other optional dependencies (dev/build) run
+To install other optional dependencies (test/build) run
 ```
 pip install -e .[test]
 ```
@@ -39,7 +39,7 @@ Please make sure to update tests as appropriate.
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+This software is covered by the MIT License. To read more about the MIT License, see [License](https://github.com/tantock/obj4dviewer/blob/main/LICENSE).
 
 ## Acknowledgments
 
