@@ -8,7 +8,7 @@ readme = "README.md"
 
 [project.optional-dependencies]
 test = ["pytest", "coverage", "pytest-mock"]
-build = ["build", "setuptools", "setuptools_scm","wheel"]
+build = ["build", "setuptools<81", "setuptools_scm","wheel"]
 
 [build-system]
 requires = [
