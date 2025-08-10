@@ -31,4 +31,4 @@ jobs:
         python -m pip install -e .[test]
     - name: Test with coverage and pytest
       run: |
-        coverage run -m pytest -v && coverage report --show-missing --cov-fail-under=70
+        coverage run -m pytest -v && coverage report --show-missing --fail_under=70
