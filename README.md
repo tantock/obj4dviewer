@@ -1,6 +1,7 @@
 # obj4dviewer
-Python 4D Engine (Object Renderer) with Pygame, Numpy, Numba
 [![Unit Tests](https://github.com/tantock/obj4dviewer/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/tantock/obj4dviewer/actions/workflows/unit-tests.yml) [![Coverage](https://github.com/tantock/obj4dviewer/actions/workflows/coverage.yaml/badge.svg)](https://github.com/tantock/obj4dviewer/actions/workflows/coverage.yaml)
+
+Python 4D Engine (Object Renderer) with Pygame, Numpy, Numba
 
 ![sofware_renderer](screenshots/1.png "sofware_renderer")
 
