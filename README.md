@@ -23,7 +23,7 @@ to install the obj4drender library and the project dependencies.
 
 To install other optional dependencies (dev/build) run
 ```
-pip install -e .[dev]
+pip install -e .[test]
 ```
 ```
 pip install -e .[build]
