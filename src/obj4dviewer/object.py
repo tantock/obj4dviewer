@@ -33,6 +33,23 @@ class Object:
     def rotate_z(self, angle):
         self.vertices = self.vertices @ rotate_z(angle)
 
+    def rotate_zw(self, angle):
+        self.vertices = self.vertices @ rotate_zw(angle)
+
+    def rotate_yw(self, angle):
+        self.vertices = self.vertices @ rotate_yw(angle)
+
+    def rotate_yz(self, angle):
+        self.vertices = self.vertices @ rotate_yz(angle)
+
+    def rotate_xw(self, angle):
+        self.vertices = self.vertices @ rotate_xw(angle)
+
+    def rotate_xz(self, angle):
+        self.vertices = self.vertices @ rotate_xz(angle)
+
+    def rotate_xy(self, angle):
+        self.vertices = self.vertices @ rotate_xy(angle)
 
 class Axes3(Object):
     def __init__(self):

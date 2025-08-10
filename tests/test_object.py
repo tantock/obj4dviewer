@@ -28,6 +28,13 @@ def test_transformations(mocker):
     mock_rotate_x = mocker.patch('obj4dviewer.object.rotate_x', return_value = np.identity(5))
     mock_rotate_y = mocker.patch('obj4dviewer.object.rotate_y', return_value = np.identity(5))
     mock_rotate_z = mocker.patch('obj4dviewer.object.rotate_z', return_value = np.identity(5))
+    
+    mock_rotate_zw = mocker.patch('obj4dviewer.object.rotate_zw', return_value = np.identity(5))
+    mock_rotate_yw = mocker.patch('obj4dviewer.object.rotate_yw', return_value = np.identity(5))
+    mock_rotate_yz = mocker.patch('obj4dviewer.object.rotate_yz', return_value = np.identity(5))
+    mock_rotate_xw = mocker.patch('obj4dviewer.object.rotate_xw', return_value = np.identity(5))
+    mock_rotate_xz = mocker.patch('obj4dviewer.object.rotate_xz', return_value = np.identity(5))
+    mock_rotate_xy = mocker.patch('obj4dviewer.object.rotate_xy', return_value = np.identity(5))
 
     pos = np.array([1,2,3,4])
     angle = np.pi/4
@@ -54,6 +61,30 @@ def test_transformations(mocker):
 
     obj.rotate_z(angle)
     mock_rotate_z.assert_called_once_with(angle)
+    assert np.all(obj.vertices == verts) # multiplied by identity matrix
+
+    obj.rotate_zw(angle)
+    mock_rotate_zw.assert_called_once_with(angle)
+    assert np.all(obj.vertices == verts) # multiplied by identity matrix
+
+    obj.rotate_yw(angle)
+    mock_rotate_yw.assert_called_once_with(angle)
+    assert np.all(obj.vertices == verts) # multiplied by identity matrix
+
+    obj.rotate_yz(angle)
+    mock_rotate_yz.assert_called_once_with(angle)
+    assert np.all(obj.vertices == verts) # multiplied by identity matrix
+
+    obj.rotate_xw(angle)
+    mock_rotate_xw.assert_called_once_with(angle)
+    assert np.all(obj.vertices == verts) # multiplied by identity matrix
+
+    obj.rotate_xz(angle)
+    mock_rotate_xz.assert_called_once_with(angle)
+    assert np.all(obj.vertices == verts) # multiplied by identity matrix
+
+    obj.rotate_xy(angle)
+    mock_rotate_xy.assert_called_once_with(angle)
     assert np.all(obj.vertices == verts) # multiplied by identity matrix
 
 def test_any_func():
