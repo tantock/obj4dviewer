@@ -11,6 +11,7 @@ def any_func(arr, a, b, c):
 class Object:
     def __init__(self, vertices='', faces='', colour = 'orange'):
         self.vertices = np.array(vertices)
+        self.position = np.array([0,0,0,0,1])
         self.faces = faces
 
         self.font = pg.font.SysFont('Arial', 30, bold=True)

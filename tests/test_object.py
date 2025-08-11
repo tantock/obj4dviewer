@@ -99,3 +99,7 @@ def test_any_func():
     assert any_func(arr, 1,2,6) == True
     assert any_func(arr, 4,2,3) == True
     assert any_func(arr, 1,5,3) == True
+
+def test_obj_init_pos():
+    obj = Object()
+    assert np.all(obj.position == np.array([0,0,0,0,1]))
