@@ -19,38 +19,59 @@ class Object:
         self.draw_vertices = False
         self.label = ''
 
-    def translate(self, pos):
-        self.vertices = self.vertices @ translate(pos)
+    def local_matrix_transform(self, matrix):
+        return  translate(-self.position[:-1]) @ matrix @ translate(self.position[:-1])
+    
+    def transform(self, transform_matrix, world_space = False):
+        if world_space:
+            self.vertices = self.vertices @ transform_matrix
+            self.position = self.position @ transform_matrix
+        else:
+            self.vertices = self.vertices @ self.local_matrix_transform(transform_matrix)
 
-    def scale(self, scale_to):
-        self.vertices = self.vertices @ scale(scale_to)
+    def translate(self, pos, world_space = True):
+        translate_matrix = translate(pos)
+        self.transform(translate_matrix, world_space)
 
-    def rotate_x(self, angle):
-        self.vertices = self.vertices @ rotate_x(angle)
+    def scale(self, scale_factor, world_space = False):
+        scale_matrix = scale(scale_factor)
+        self.transform(scale_matrix, world_space)
 
-    def rotate_y(self, angle):
-        self.vertices = self.vertices @ rotate_y(angle)
+    def rotate_x(self, angle, world_space = False):
+        rotate_matrix = rotate_x(angle)
+        self.transform(rotate_matrix, world_space)
 
-    def rotate_z(self, angle):
-        self.vertices = self.vertices @ rotate_z(angle)
+    def rotate_y(self, angle, world_space = False):
+        rotate_matrix = rotate_y(angle)
+        self.transform(rotate_matrix, world_space)
 
-    def rotate_zw(self, angle):
-        self.vertices = self.vertices @ rotate_zw(angle)
+    def rotate_z(self, angle, world_space = False):
+        rotate_matrix = rotate_z(angle)
+        self.transform(rotate_matrix, world_space)
 
-    def rotate_yw(self, angle):
-        self.vertices = self.vertices @ rotate_yw(angle)
+    def rotate_zw(self, angle, world_space = False):
+        rotate_matrix = rotate_zw(angle)
+        self.transform(rotate_matrix, world_space)
 
-    def rotate_yz(self, angle):
-        self.vertices = self.vertices @ rotate_yz(angle)
+    def rotate_yw(self, angle, world_space = False):
+        rotate_matrix = rotate_yw(angle)
+        self.transform(rotate_matrix, world_space)
 
-    def rotate_xw(self, angle):
-        self.vertices = self.vertices @ rotate_xw(angle)
+    def rotate_yz(self, angle, world_space = False):
+        rotate_matrix = rotate_yz(angle)
+        self.transform(rotate_matrix, world_space)
 
-    def rotate_xz(self, angle):
-        self.vertices = self.vertices @ rotate_xz(angle)
+    def rotate_xw(self, angle, world_space = False):
+        rotate_matrix = rotate_xw(angle)
+        self.transform(rotate_matrix, world_space)
 
-    def rotate_xy(self, angle):
-        self.vertices = self.vertices @ rotate_xy(angle)
+    def rotate_xz(self, angle, world_space = False):
+        rotate_matrix = rotate_xz(angle)
+        self.transform(rotate_matrix, world_space)
+
+    def rotate_xy(self, angle, world_space = False):
+        rotate_matrix = rotate_xy(angle)
+        self.transform(rotate_matrix, world_space)
 
 class Axes3(Object):
     def __init__(self):

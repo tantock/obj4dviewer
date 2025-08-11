@@ -103,3 +103,24 @@ def test_any_func():
 def test_obj_init_pos():
     obj = Object()
     assert np.all(obj.position == np.array([0,0,0,0,1]))
+
+def test_local_transform():
+    pg.init()
+    pos = np.array([2,3,4,5,1])
+
+    obj = Object()
+    obj2 = Object()
+
+    obj.vertices = np.array([(0, 0, 0, 0, 1), (1, 0, 0, 0, 1)])
+    obj2.vertices = np.array([(0, 0, 0, 0, 1), (1, 0, 0, 0, 1)])
+
+    obj.translate(pos[:-1])
+    assert np.all(obj.vertices[0] == np.array([2,3,4,5,1]))
+    assert np.all(obj.vertices[1] == np.array([3,3,4,5,1]))
+    obj.transform(scale(2))
+
+    obj2.scale(2)
+    obj2.translate(pos[:-1])
+
+    assert np.all(obj.vertices[0] == obj2.vertices[0])
+    assert np.all(obj.vertices[1] == obj2.vertices[1])
