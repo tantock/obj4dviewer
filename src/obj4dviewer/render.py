@@ -51,7 +51,10 @@ class SoftwareRender:
         for object in self.scene.objects.values():
             self.draw_object(object)
 
-    def handle_pg_event(self):                    
+    def handle_pg_event(self):
+        keypressed = pg.key.get_pressed()       
+        if keypressed[pg.K_ESCAPE]:
+            exit()    
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 exit()
