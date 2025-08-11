@@ -3,7 +3,7 @@
 
 Python 4D Engine (Object Renderer) with Pygame, Numpy, Numba
 
-![sofware_renderer](screenshots/1.png "sofware_renderer")
+![sofware_renderer](screenshots/2.png "sofware_renderer")
 
 ## About The Project
 This is a viewer for 4D objects. It projects a 4D object onto a 3D plane, and then from a 3D plane to a 2D screen. It is backwards compatible with regular 3D obj files. A 4d obj file specified with the .obj4 extension.
