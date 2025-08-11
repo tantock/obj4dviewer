@@ -51,10 +51,12 @@ class SoftwareRender:
         for object in self.scene.objects.values():
             self.draw_object(object)
 
-    def handle_pg_event(self):
+    def check_quit(self, key_to_quit = pg.K_ESCAPE):
         keypressed = pg.key.get_pressed()       
-        if keypressed[pg.K_ESCAPE]:
-            exit()    
+        if keypressed[key_to_quit]:
+            exit()  
+        
+    def handle_pg_event(self):  
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 exit()
@@ -63,6 +65,7 @@ class SoftwareRender:
 
     def run(self):
         while True:
+            self.check_quit()
             self.draw_scene()
             self.scene.camera_controller.control()
             self.scene.camera_controller.mouse_input(self.settings.mouse_factor*self.settings.mouse_speed)
