@@ -26,7 +26,7 @@ class SoftwareRender:
 
     def draw_object(self, object:Object):
         vertices = object.vertices @ self.scene.camera.camera_matrix()
-        vertices = vertices @ self.scene.camera.projection.projection_matrix
+        vertices = vertices @ self.scene.camera.projection.matrix()
         vertices /= vertices[:, -1].reshape(-1, 1)
         vertices[(vertices > 2) | (vertices < -2)] = 0
         vertices = vertices @ self.settings.screen_settings.screen_matrix

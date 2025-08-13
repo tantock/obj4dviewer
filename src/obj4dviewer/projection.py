@@ -2,7 +2,14 @@ import math
 import numpy as np
 from obj4dviewer.camera_view_settings import CameraViewSettings
 
-class Perspective:
+from abc import ABC, abstractmethod
+
+class Projection(ABC):
+    @abstractmethod
+    def matrix():
+        pass
+
+class Perspective(Projection):
     def __init__(self, view_settings:CameraViewSettings):
         NEAR = view_settings.near_plane
         FAR = view_settings.far_plane
@@ -18,10 +25,13 @@ class Perspective:
         m22 = 2 / (THERE - HERE)
         m33 = (FAR + NEAR) / (FAR - NEAR)
         m43 = -2 * NEAR * FAR / (FAR - NEAR)
-        self.projection_matrix = np.array([
+        self._projection_matrix = np.array([
             [m00, 0, 0, 0, 0],
             [0, m11, 0, 0, 0],
             [0, 0, m22, 0, 1],
             [0, 0, 0, m33, 1],
             [0, 0, 0, m43, 0]
         ])
+
+    def matrix(self):
+        return self._projection_matrix

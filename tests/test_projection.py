@@ -11,8 +11,8 @@ def test_perspective_depth():
     x, y, z, w = -10,-20,-30,-40
     H = 1
 
-    v1 = projection.projection_matrix @ np.array([x,y,z,w,H])
-    v2 = projection.projection_matrix @ np.array([x,y,z,w*2,H])
+    v1 = projection.matrix() @ np.array([x,y,z,w,H])
+    v2 = projection.matrix() @ np.array([x,y,z,w*2,H])
 
     v1ndc = v1/v1[-1]
     v2ndc = v2/v2[-1]
@@ -24,8 +24,8 @@ def test_perspective_depth_transform():
     x, y, z, w = -10,-20,-30,-40
     H = 1
 
-    v1 = projection.projection_matrix @ np.array([x,y,z,w,H])
-    v2 = projection.projection_matrix @ np.array([x,y,z,w*2,H])
+    v1 = projection.matrix() @ np.array([x,y,z,w,H])
+    v2 = projection.matrix() @ np.array([x,y,z,w*2,H])
 
     v1ndc = v1/v1[-1]
     v2ndc = v2/v2[-1]
@@ -37,14 +37,14 @@ def test_orthogonality():
     projection = init()
     x, y, z, w = -10,-20,-30,-40
     H = 1
-    v1 = projection.projection_matrix @ np.array([x,y,z,w,H])
+    v1 = projection.matrix() @ np.array([x,y,z,w,H])
 
     v1ndc = v1/v1[-1]
     
     for i in range(3):
         arr = [x,y,z,w,H]
         arr[i] += 10
-        v2 = projection.projection_matrix @ np.array(arr)
+        v2 = projection.matrix() @ np.array(arr)
         v2ndc = v2/v2[-1]
         for j in range(3):
             if i != j:
