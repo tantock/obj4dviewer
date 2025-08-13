@@ -9,10 +9,39 @@ def any_func(arr, a, b, c):
 
 
 class Object:
-    def __init__(self, vertices='', faces='', colour = 'orange'):
+    def __init__(self, vertices='', faces='', cells = None, vertex_normals = None, colour = 'orange'):
         self.vertices = np.array(vertices)
+        self.vertex_normals = np.array(vertex_normals)
+        self.face_normals = None
+        self.cell_normals = None
         self.position = np.array([0,0,0,0,1])
         self.faces = faces
+        self.cells = cells
+
+        if vertex_normals != None:    
+            num_vertex_normals = len(vertex_normals)
+            if num_vertex_normals == len(faces):
+                self.face_normals = np.array(vertex_normals)
+            elif num_vertex_normals == len(vertices):
+                face_normals = []
+                for face in faces:
+                    avg_normal = np.array([0,0,0,0,0]).astype(float)
+                    for v in face:
+                        avg_normal += np.array([*vertex_normals[v]])
+                    avg_normal /= len(face)
+                    avg_normal[:-1]  /= np.linalg.norm(avg_normal[:-1])
+                    face_normals.append(avg_normal)
+                self.face_normals = np.array(face_normals)
+            if cells != None:
+                cell_normals = []
+                for cell in cells:
+                    avg_normal = np.array([0,0,0,0,0]).astype(float)
+                    for f in cell:
+                        avg_normal += np.array([*self.face_normals[f]])
+                    avg_normal /= len(cell)
+                    avg_normal[:-1]  /= np.linalg.norm(avg_normal[:-1])
+                    cell_normals.append(avg_normal)
+                self.cell_normals = np.array(cell_normals)                
 
         self.font = pg.font.SysFont('Arial', 30, bold=True)
         self.color_faces = [(pg.Color(colour), face) for face in self.faces]
