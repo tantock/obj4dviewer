@@ -33,7 +33,7 @@ class Object:
                     avg_normal[:-1]  /= np.linalg.norm(avg_normal[:-1])
                     face_normals.append(avg_normal)
                 self.face_normals = np.array(face_normals)
-            if cells != None:
+            if cells is not None:
                 cell_normals = []
                 for cell in cells:
                     avg_normal = np.array([0,0,0,0,0]).astype(float)
@@ -56,8 +56,22 @@ class Object:
         if world_space:
             self.vertices = self.vertices @ transform_matrix
             self.position = self.position @ transform_matrix
+            if self.vertex_normals is not None:
+                self.vertex_normals = self.vertex_normals @ transform_matrix
+                self.vertex_normals_origin = self.vertex_normals_origin @ transform_matrix
+            if self.face_normals is not None:
+                self.face_normals = self.face_normals @ transform_matrix
+            if self.cell_normals is not None:
+                self.cell_normals = self.cell_normals @ transform_matrix
         else:
             self.vertices = self.vertices @ self.local_matrix_transform(transform_matrix)
+            if self.vertex_normals is not None:
+                self.vertex_normals = self.vertex_normals @ self.local_matrix_transform(transform_matrix)
+                self.vertex_normals_origin = self.vertex_normals_origin @ self.local_matrix_transform(transform_matrix)
+            if self.face_normals is not None:
+                self.face_normals = self.face_normals @ self.local_matrix_transform(transform_matrix)
+            if self.cell_normals is not None:
+                self.cell_normals = self.cell_normals @ self.local_matrix_transform(transform_matrix)
 
     def translate(self, pos, world_space = True):
         translate_matrix = translate(pos)
