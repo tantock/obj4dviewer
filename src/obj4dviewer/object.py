@@ -11,7 +11,7 @@ def any_func(arr, a, b, c):
 class Object:
     def __init__(self, vertices='', faces='', cells = None, vertex_normals = None, colour = 'orange'):
         self.vertices = np.array(vertices)
-        self.vertex_normals = np.array(vertex_normals)
+        self.vertex_normals = np.array(vertex_normals) if vertex_normals is not None else None
         self.vertex_normals_origin = np.array([0,0,0,0,1])
         self.face_normals = None
         self.cell_normals = None
