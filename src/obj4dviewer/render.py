@@ -32,6 +32,8 @@ class SoftwareRender:
         vertices = vertices @ self.settings.screen_settings.screen_matrix
         vertices = vertices[:, :2]
 
+        is_3d_obj = object.cells is None
+
         for index, color_face in enumerate(object.color_faces):
             color, face = color_face
             polygon = vertices[face]
