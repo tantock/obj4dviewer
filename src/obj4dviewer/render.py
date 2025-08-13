@@ -33,11 +33,20 @@ class SoftwareRender:
         vertices = vertices[:, :2]
 
         is_3d_obj = object.cells is None
-
+        if object.face_normals is not None:
+            face_normals = (object.face_normals-object.vertex_normals_origin) @ self.scene.camera.rotate_matrix()
+        
         for index, color_face in enumerate(object.color_faces):
             color, face = color_face
+            cull = False
+            if is_3d_obj:
+                #backface cull
+                if object.face_normals is not None:
+                    dot = np.dot(face_normals[index][:-1], np.array([0,0,1,0]))
+                    cull = dot > 0
+                
             polygon = vertices[face]
-            if not any_func(polygon, self.settings.screen_settings.H_WIDTH, self.settings.screen_settings.H_HEIGHT, self.settings.screen_settings.H_DEPTH):
+            if not cull and not any_func(polygon, self.settings.screen_settings.H_WIDTH, self.settings.screen_settings.H_HEIGHT, self.settings.screen_settings.H_DEPTH):
                 pg.draw.polygon(self.screen, color, polygon, 1)
                 if object.label:
                     text = object.font.render(object.label[index], True, pg.Color('white'))
