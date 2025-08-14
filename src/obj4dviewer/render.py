@@ -35,6 +35,8 @@ class SoftwareRender:
         is_3d_obj = object.cells is None
         if object.face_normals is not None:
             face_normals = (object.face_normals-object.vertex_normals_origin) @ self.scene.camera.rotate_matrix()
+        if object.cell_normals is not None:
+            cell_normals = (object.cell_normals-object.vertex_normals_origin) @ self.scene.camera.rotate_matrix()
         
         for index, color_face in enumerate(object.color_faces):
             color, face = color_face
@@ -44,6 +46,13 @@ class SoftwareRender:
                 if object.face_normals is not None:
                     dot = np.dot(face_normals[index][:-1], np.array([0,0,1,0]))
                     cull = dot > 0
+            else:
+                if object.cell_normals is not None:
+                    # find which cell contains this face
+                    for idx, c in enumerate(object.cells):
+                        if index in c:
+                            dot = np.dot(cell_normals[idx][:-1], np.array([0,0,0,1]))
+                            cull = dot > 0
                 
             polygon = vertices[face]
             if not cull and not any_func(polygon, self.settings.screen_settings.H_WIDTH, self.settings.screen_settings.H_HEIGHT, self.settings.screen_settings.H_DEPTH):
