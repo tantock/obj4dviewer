@@ -44,15 +44,13 @@ class SoftwareRender:
             if is_3d_obj:
                 #backface cull
                 if object.face_normals is not None:
-                    dot = np.dot(face_normals[index][:-1], np.array([0,0,1,0]))
-                    cull = dot > 0
+                    cull = backface_cull(face_normals[index][:-1], np.array([0,0,1,0]))
             else:
                 if object.cell_normals is not None:
                     # find which cell contains this face
                     for idx, c in enumerate(object.cells):
                         if index in c:
-                            dot = np.dot(cell_normals[idx][:-1], np.array([0,0,0,1]))
-                            cull = dot > 0
+                            cull = backface_cull(cell_normals[idx][:-1], np.array([0,0,0,1]))
                 
             polygon = vertices[face]
             if not cull and not any_func(polygon, self.settings.screen_settings.H_WIDTH, self.settings.screen_settings.H_HEIGHT, self.settings.screen_settings.H_DEPTH):
@@ -93,3 +91,7 @@ class SoftwareRender:
             pg.display.set_caption(str(self.clock.get_fps()))
             pg.display.flip()
             self.clock.tick(self.settings.FPS)
+
+def backface_cull(normal, view_direction) -> bool:
+    dot = np.dot(normal, view_direction)
+    return dot > 0
