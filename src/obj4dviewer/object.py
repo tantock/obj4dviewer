@@ -18,6 +18,7 @@ class Object:
         self.position = np.array([0,0,0,0,1])
         self.faces = faces
         self.cells = cells
+        self.backface_cull_enable = True
 
         if vertex_normals != None:    
             num_vertex_normals = len(vertex_normals)

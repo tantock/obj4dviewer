@@ -51,7 +51,7 @@ class SoftwareRender:
                     for idx, c in enumerate(object.cells):
                         if index in c:
                             cull = backface_cull(cell_normals[idx][:-1], np.array([0,0,0,1]))
-                
+            cull = cull and object.backface_cull_enable    
             polygon = vertices[face]
             if not cull and not any_func(polygon, self.settings.screen_settings.H_WIDTH, self.settings.screen_settings.H_HEIGHT, self.settings.screen_settings.H_DEPTH):
                 pg.draw.polygon(self.screen, color, polygon, 1)
