@@ -124,3 +124,15 @@ def test_local_transform():
 
     assert np.all(obj.vertices[0] == obj2.vertices[0])
     assert np.all(obj.vertices[1] == obj2.vertices[1])
+
+def test_poly_vertex_to_face_normal():
+    faces = [[0,1,2,3],[2,3,4,5]]
+    vertex_normals = [[-1,-1,-1,0, 1],
+                      [-1,1,-1,0, 1],
+                      [1,1,-1,0, 1],
+                      [1,-1,-1,0, 1],
+                      [1,-1,1,0, 1],
+                      [1,1,1,0, 1]]
+    
+    fn = poly_vertex_to_face_normal(vertex_normals, faces)
+    assert np.all(fn==np.array([[0,0,-1,0,1],[1,0,0,0,1]]))
