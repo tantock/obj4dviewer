@@ -122,6 +122,56 @@ class Axes4(Object):
         self.draw_vertices = False
         self.label = 'XYZW'
 
+class Axes4Hint(Object):
+    def __init__(self):
+        super().__init__(vertices=np.array([[0,0,0,0,1],
+                                            [0,1,0,0,1],
+                                            [1,1,0,0,1],
+                                            [1,0,0,0,1],
+                                            [0,0,1,0,1],
+                                            [0,1,1,0,1],
+                                            [1,1,1,0,1],
+                                            [1,0,1,0,1],
+                                            [0,0,0,1,1],
+                                            [0,1,0,1,1],
+                                            [1,1,0,1,1],
+                                            [1,0,0,1,1],
+                                            [0,0,1,1,1],
+                                            [0,1,1,1,1],
+                                            [1,0,1,1,1]]))
+        self.faces = np.array([ [0,1,2,3],
+                                [2,3,7,6],
+                                [1,2,6,5],
+                                [0,1,5,4],
+                                [0,3,7,4],
+                                [4,7,6,5],
+                                [0,1,2,3],
+                                [2,3,11,10],
+                                [1,2,10,9],
+                                [0,1,9,8],
+                                [0,3,11,8],
+                                [8,11,10,9],
+                                [0,1,5,4],
+                                [5,4,12,13],
+                                [1,5,13,9],
+                                [0,1,9,8],
+                                [0,4,12,8],
+                                [8,12,13,9],
+                                [0,3,7,4],
+                                [7,4,12,14],
+                                [3,7,14,11],
+                                [0,3,11,8],
+                                [0,4,12,8],
+                                [8,12,14,11]])
+        red = pg.Color(255,0,0,127)
+        green = pg.Color(0,255,0,127)
+        blue = pg.Color(0,0,255,127)
+        yellow = pg.Color(255,255,0,127)
+        self.colors = [red,red,red,red,red,red,green,green,green,green,green,green,blue,blue,blue,blue,blue,blue,yellow,yellow,yellow,yellow,yellow,yellow]
+        self.color_faces = [(color, face) for color, face in zip(self.colors, self.faces)]
+        self.draw_vertices = False
+        self.backface_cull_enable = False
+
 def poly_vertex_to_face_normal(vertex_normals, faces):
     face_normals = []
     for face in faces:
