@@ -25,10 +25,10 @@ class Object:
                 self.face_normals = np.array(vertex_normals)
             elif num_vertex_normals == len(vertices):
                 self.face_normals = poly_vertex_to_face_normal(vertex_normals, faces)
+                if cells is not None:
+                    self.cell_normals = poly_vertex_to_face_normal(self.face_normals, cells)            
             else:
                 raise NotImplemented("Unknown vertex normal schema")
-            if cells is not None:
-                self.cell_normals = poly_vertex_to_face_normal(self.face_normals, cells)            
 
         self.font = pg.font.SysFont('Arial', 30, bold=True)
         self.color_faces = [(pg.Color(colour), face) for face in self.faces]
