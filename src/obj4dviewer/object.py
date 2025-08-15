@@ -33,6 +33,8 @@ class Object:
                     avg_normal[:-1]  /= np.linalg.norm(avg_normal[:-1])
                     face_normals.append(avg_normal)
                 self.face_normals = np.array(face_normals)
+            else:
+                raise NotImplemented("Unknown vertex normal schema")
             if cells is not None:
                 cell_normals = []
                 for cell in cells:
