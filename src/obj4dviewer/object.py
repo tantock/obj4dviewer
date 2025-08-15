@@ -28,15 +28,7 @@ class Object:
             else:
                 raise NotImplemented("Unknown vertex normal schema")
             if cells is not None:
-                cell_normals = []
-                for cell in cells:
-                    avg_normal = np.array([0,0,0,0,0]).astype(float)
-                    for f in cell:
-                        avg_normal += np.array([*self.face_normals[f]])
-                    avg_normal /= len(cell)
-                    avg_normal[:-1]  /= np.linalg.norm(avg_normal[:-1])
-                    cell_normals.append(avg_normal)
-                self.cell_normals = np.array(cell_normals)                
+                self.cell_normals = poly_vertex_to_face_normal(self.face_normals, cells)            
 
         self.font = pg.font.SysFont('Arial', 30, bold=True)
         self.color_faces = [(pg.Color(colour), face) for face in self.faces]
