@@ -24,15 +24,7 @@ class Object:
             if num_vertex_normals == len(faces):
                 self.face_normals = np.array(vertex_normals)
             elif num_vertex_normals == len(vertices):
-                face_normals = []
-                for face in faces:
-                    avg_normal = np.array([0,0,0,0,0]).astype(float)
-                    for v in face:
-                        avg_normal += np.array([*vertex_normals[v]])
-                    avg_normal /= len(face)
-                    avg_normal[:-1]  /= np.linalg.norm(avg_normal[:-1])
-                    face_normals.append(avg_normal)
-                self.face_normals = np.array(face_normals)
+                self.face_normals = poly_vertex_to_face_normal(vertex_normals, faces)
             else:
                 raise NotImplemented("Unknown vertex normal schema")
             if cells is not None:
@@ -136,3 +128,14 @@ class Axes4(Object):
         self.color_faces = [(color, face) for color, face in zip(self.colors, self.faces)]
         self.draw_vertices = False
         self.label = 'XYZW'
+
+def poly_vertex_to_face_normal(vertex_normals, faces):
+    face_normals = []
+    for face in faces:
+        avg_normal = np.array([0,0,0,0,0]).astype(float)
+        for v in face:
+            avg_normal += np.array([*vertex_normals[v]])
+        avg_normal /= len(face)
+        avg_normal[:-1]  /= np.linalg.norm(avg_normal[:-1])
+        face_normals.append(avg_normal)
+    return np.array(face_normals)
