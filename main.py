@@ -1,13 +1,13 @@
 from obj4dviewer.render import SoftwareRender
 from obj4dviewer.render_settings import RenderSettings
-from obj4dviewer.object import Axes4
+from obj4dviewer.object import Axes4, Axes4Hint
 import math
 
 if __name__ == '__main__':
     app = SoftwareRender(RenderSettings(1600, 900, sky_colour = 'black'))
     tesseract_id = app.scene.load_object_from_file('resources/tesseract.obj4')
     teapot_id = app.scene.load_object_from_file('resources/teapot.obj')
-    axis_hint_id = app.scene.load_object_from_file('resources/axis_hint.obj4')
+    axis_hint_id = app.scene.add_object(Axes4Hint())
     axis_id = app.scene.add_object(Axes4())
     
     tesseract = app.scene.get_object(tesseract_id)
